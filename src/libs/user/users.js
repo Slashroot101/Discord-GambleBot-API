@@ -1,5 +1,5 @@
-let db = require(`./database`);
-let { getByDiscordID } = require(`./queries`);
+let db = require(`../database`);
+let { getByDiscordID, create } = require(`./queries`);
 
 
 exports.getByDiscordID = (discordID) => {
@@ -10,7 +10,7 @@ exports.getByDiscordID = (discordID) => {
 };
 
 exports.create = (discordID) => {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
         let user = await db.query(create({discordUserID: discordID}));
         resolve(user);
     });

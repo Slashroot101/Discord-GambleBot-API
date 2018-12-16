@@ -9,7 +9,7 @@ exports.getByDiscordID = (id) => {
 exports.create = (user) => {
     return {
         name: 'create-user',
-        text: 'INSERT INTO users(discord_user_id, created_on) VALUES($1, $2)',
-        values: [ user.discord_user_id, new Date()]
+        text: 'INSERT INTO users(discord_user_id, created_on) VALUES($1, $2) RETURNING *',
+        values: [ user.discordUserID, new Date()]
     };
 };

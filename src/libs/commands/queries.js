@@ -21,3 +21,11 @@ exports.create = (duration, usages, name) => {
         values: [ duration, usages, name ]
     }
 };
+
+exports.addToUserAudit = (commandID, userID, execDate) => {
+    return {
+        name: 'create-user-audit',
+        text: 'INSERT INTO command_history (command_id, execution_time, user_id) VALUES ($1, $3, $2)',
+        values: [commandID, userID, execDate]
+    }
+};

@@ -11,13 +11,20 @@ exports.getByName = (commandName) => {
 exports.updateDurationAndUsage = (id, duration, usages) => {
     return new Promise(async(resolve) => {
         let command = await db.query(Commands.updateDurationAndUsage(id, duration, usages));
-        resolve(command);
+        resolve(command.rows[0]);
     });
 }
 
 exports.create = (duration, usages, name) => {
     return new Promise(async (resolve) => {
         let command = await db.query(Commands.create(duration, usages, name));
-        resolve(command);
+        resolve(command.rows[0]);
+    });
+};
+
+exports.addToUserAudit = (commandID, userID, execDate = new Date()) => {
+    return new Promise(async (resolve) => {
+        let audit = await db.query(Commands.addToUserAudit(commandID, userID, execDate))
+        resolve(audit.rows[0]);
     });
 };

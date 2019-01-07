@@ -33,7 +33,8 @@ exports.addToUserAudit = (commandID, userID, execDate) => {
 exports.getCommandHistoryCountByDuration = (commandID, userID) => {
     return {
         name: 'get-command-history-by-duration',
-        text: `SELECT count(command_history.id) as executedCommands, commands.usages as allowedUsages FROM command_history
+        text: `SELECT COUNT(command_history.id) AS executedCommands,
+              commands.usages as allowedUsages FROM command_history
               JOIN commands on (commands.id = command_history.command_id)
               WHERE execution_time > (current_timestamp -  (interval '1 minutes' * (SELECT commands.duration FROM commands WHERE commands.id = $1)))
               AND command_id = $1 and user_id = $2

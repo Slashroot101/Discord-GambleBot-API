@@ -28,7 +28,14 @@ router.post('/:commandID/user/:userID', async function(req, res, next){
 
 router.get('/:commandID/user/:userID/cooldown', async function(req, res, next){
     let audit = await Commands.getCommandHistoryCountByDuration(req.params.commandID, req.params.userID);
-    responseHandler(res, {audit});
+    let onCooldown;
+    if(audit !== undefined && (Number(audit.executedcommands) === audit.allowedusages || Number(audit.executedcommands) > audit.allowedusages)){
+        console.log(true)
+        onCooldown = true;
+    } else {
+        onCooldown = false;
+    }
+    responseHandler(res, {onCooldown});
     next();
 });
 

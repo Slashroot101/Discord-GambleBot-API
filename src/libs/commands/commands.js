@@ -32,6 +32,10 @@ exports.addToUserAudit = (commandID, userID, execDate = new Date()) => {
 exports.getCommandHistoryCountByDuration = (commandID, userID) => {
     return new Promise(async (resolve) => {
         let audit = await db.query(Commands.getCommandHistoryCountByDuration(commandID, userID));
-        resolve(audit.rows[0]);
+        if(audit.rows.length) {
+          resolve(audit.rows[0]);
+        } else {
+          resolve();
+        }
     });
 };

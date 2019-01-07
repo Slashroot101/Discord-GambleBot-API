@@ -12,7 +12,7 @@ router.post('/', async function (req, res, next) {
     let command = await Commands.getByName(req.body.name);
     if(command){
         let updatedCommand = await Commands.updateDurationAndUsage(command.id, req.body.duration, req.body.usages);
-        responseHandler(res, {commands: updatedCommand}); 
+        responseHandler(res, {commands: updatedCommand});
     } else {
         let newCommand = await Commands.create(req.body.duration, req.body.usages, req.body.name);
         responseHandler(res, {commands: newCommand});
@@ -21,9 +21,14 @@ router.post('/', async function (req, res, next) {
 });
 
 router.post('/:commandID/user/:userID', async function(req, res, next){
-    console.log(req.params.commandID, req.params.userID)
     let audit = await Commands.addToUserAudit(req.params.commandID, req.params.userID, new Date());
     responseHandler(res, {audit})
+    next();
+});
+
+router.get('/:commandID/user/:userID/cooldown', async function(req, res, next){
+    let audit = await Commands.getCommandHistoryCountByDuration(req.params.commandID, req.params.userID);
+    responseHandler(res, {audit});
     next();
 });
 

@@ -29,7 +29,10 @@ router.post('/:commandID/user/:userID', async function(req, res, next){
 router.get('/:commandID/user/:userID/cooldown', async function(req, res, next){
     let audit = await Commands.getCommandHistoryCountByDuration(req.params.commandID, req.params.userID);
     let onCooldown;
-    if(audit !== undefined && (Number(audit.executedcommands) === audit.allowedusages || Number(audit.executedcommands) > audit.allowedusages)){
+    if(audit !== undefined
+        && (Number(audit.executedcommands) === audit.allowedusages
+            || Number(audit.executedcommands) > audit.allowedusages)){
+        let oldestAudit = await Command.getOldestAuditInDuration(req.params.commandID, req.params.userID);
         console.log(true)
         onCooldown = true;
     } else {
@@ -38,5 +41,7 @@ router.get('/:commandID/user/:userID/cooldown', async function(req, res, next){
     responseHandler(res, {onCooldown});
     next();
 });
+
+
 
 module.exports = router;

@@ -29,6 +29,13 @@ exports.addToUserAudit = (commandID, userID, execDate = new Date()) => {
     });
 };
 
+exports.getOldestAuditInDuration = (commandID, userID) => {
+    return new Promise(async(resolve) => {
+       let audit = await db.query(Commands.getOldestAuditInDuration(commandID, userID));
+       resolve(audit.rows[0]);
+    });
+};
+
 exports.getCommandHistoryCountByDuration = (commandID, userID) => {
     return new Promise(async (resolve) => {
         let audit = await db.query(Commands.getCommandHistoryCountByDuration(commandID, userID));

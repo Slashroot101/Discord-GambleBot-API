@@ -11,3 +11,7 @@ create table commands
 
 alter table commands
   owner to postgres;
+
+create unique index commands_name_uindex
+  on commands (name);
+

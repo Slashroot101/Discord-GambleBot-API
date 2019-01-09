@@ -21,3 +21,10 @@ exports.addPointsByUserID = (userID, points) => {
         resolve();
     });
 };
+
+exports.getLeaderboardByPageNumber = (pageNumber) => {
+    return new Promise(async (resolve) => {
+        let lb = await db.query(Points.getLeaderboardByPageNumber(pageNumber));
+        resolve(lb.rows);
+    });
+};

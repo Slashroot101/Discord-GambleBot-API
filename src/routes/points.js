@@ -38,7 +38,7 @@ router.get('/page-number/:pageNumber/leaderboard', async function(req, res, next
     try {
         let leaderboardData = await Points.getLeaderboardByPageNumber(req.params.pageNumber);
         let numRows = await Points.getNumberOfRows();
-        let numPages = numRows % 10;
+        let numPages = Math.ceil(numRows / 10);
         responseHandler(res, {leaderboard: leaderboardData, numPages})
     } catch (err){
         errorHandler(res, err);

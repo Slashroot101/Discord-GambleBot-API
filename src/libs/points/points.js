@@ -28,3 +28,10 @@ exports.getLeaderboardByPageNumber = (pageNumber) => {
         resolve(lb.rows);
     });
 };
+
+exports.getNumberOfRows = () => {
+    return new Promise(async (resolve) => {
+        let rows = await db.query(Points.getNumberOfRows());
+        resolve(rows.rows[0].count);
+    });
+}

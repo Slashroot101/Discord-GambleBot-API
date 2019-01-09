@@ -25,7 +25,15 @@ exports.addPointsByUserID = (userID, points) => {
 exports.getLeaderboardByPageNumber = (pageNumber) => {
     return {
         name: 'get-leaderboard-by-page-number',
-        text: 'SELECT * FROM points JOIN users ON points.user_id = users.id ORDER BY points DESC limit 10 OFFSET $1 * 10',
+        text: 'SELECT * FROM points JOIN users ON points.user_id = users.id ORDER BY points ASC limit 10 OFFSET $1 * 10',
         values: [pageNumber]
+    }
+};
+
+exports.getNumberOfRows = () => {
+    return {
+        name: 'get-row-count-for-points',
+        text: 'SELECT count(id) FROM points',
+        values: []
     }
 };

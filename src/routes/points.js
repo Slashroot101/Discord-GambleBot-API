@@ -37,7 +37,9 @@ router.put('/user-id/:userID/daily', async function(req, res, next){
 router.get('/page-number/:pageNumber/leaderboard', async function(req, res, next){
     try {
         let leaderboardData = await Points.getLeaderboardByPageNumber(req.params.pageNumber);
-        responseHandler(res, {leaderboard: leaderboardData})
+        let numRows = await Points.getNumberOfRows();
+        let numPages = numRows % 10;
+        responseHandler(res, {leaderboard: leaderboardData, numPages})
     } catch (err){
         errorHandler(res, err);
     }

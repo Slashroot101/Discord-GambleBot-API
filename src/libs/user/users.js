@@ -30,3 +30,17 @@ exports.blacklist = (userID, userWhoBanned, reason, date = new Date()) => {
     });
 };
 
+exports.removeFromBlacklist = (userID) => {
+    return new Promise(async (resolve) => {
+        await db.query(UserQueries.removeFromBlacklist(userID));
+        resolve();
+    });
+}
+
+exports.updateRoleID = (userID, roleID) => {
+    return new Promise(async(resolve) => {
+        let user = await db.query(UserQueries.updateRole(userID, roleID));
+        resolve(user.rows[0]);
+    });
+};
+

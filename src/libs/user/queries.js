@@ -32,3 +32,19 @@ exports.blacklist = (userID, userWhoBanned, reason, date) => {
         values: [userID, userWhoBanned, reason, date]
     }
 };
+
+exports.removeFromBlacklist = (userID) => {
+    return {
+        name: 'remove-from-blacklist-via-discord-id',
+        text: 'DELETE FROM blacklist WHERE user_id = $1',
+        values: [userID]
+    }
+};
+
+exports.updateRole = (userID, roleID) => {
+    return {
+        name: 'update-user-role',
+        text: 'UPDATE users set role_id = $1 WHERE id = $2 RETURNING *',
+        values: [roleID, userID]
+    }
+}

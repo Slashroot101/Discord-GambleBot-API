@@ -44,4 +44,24 @@ router.post('/user-id/:userID/blacklist', async function(req, res, next){
     next();
 });
 
+router.del('/user-id/:userID/blacklist', async function(req, res, next){
+    try {
+        await User.removeFromBlacklist(req.params.userID);
+        responseHandler(res, {});
+    } catch (err){
+        errorHandler(res, err);
+    }
+    next();
+});
+
+router.put('/user-id/:userID/role/:roleID', async function(req, res, next){
+    try {
+        let user = await User.updateRoleID(req.params.userID, req.params.roleID);
+        responseHandler(res, {user});
+    } catch (err){
+        errorHandler(res, err);
+    }
+    next();
+});
+
 module.exports = router;

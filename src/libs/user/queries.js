@@ -1,7 +1,7 @@
 exports.getByDiscordID = (id) => {
     return {
         name: 'fetch-user-by-discord-id',
-        text: 'SELECT * FROM users JOIN points ON points.user_id = users.id WHERE discord_user_id = $1',
+        text: 'SELECT users.*, points.*, blacklist.blacklist_date, blacklist.reason FROM users JOIN points ON points.user_id = users.id LEFT JOIN blacklist ON blacklist.user_id = users.id WHERE discord_user_id = $1',
         values: [ id ]
     };
 };

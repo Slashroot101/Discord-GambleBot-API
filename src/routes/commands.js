@@ -34,7 +34,6 @@ router.get('/:commandID/user/:userID/cooldown', async function(req, res, next){
         && (Number(audit.executedcommands) === audit.allowedusages
             || Number(audit.executedcommands) > audit.allowedusages)){
          oldestAudit = await Commands.getOldestAuditInDuration(req.params.commandID, req.params.userID);
-        console.log(oldestAudit)
         onCooldown = true;
     } else {
         onCooldown = false;

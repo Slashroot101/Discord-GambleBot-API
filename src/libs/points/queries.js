@@ -6,6 +6,14 @@ exports.create = (userID) => {
     }
 };
 
+exports.addToPointsLog = (commandHistoryID, points) => {
+    return {
+        name: 'add-to-point-log',
+        text: 'INSERT into points_audit_log(command_history_id, points) VALUES ($1, $2) RETURNING *',
+        values: [commandHistoryID, points]
+    }
+};
+
 exports.addPointsByDiscordID = (discordID, points) => {
     return {
         name: 'add-user-points-by-did',

@@ -22,6 +22,13 @@ exports.addPointsByUserID = (userID, points) => {
     });
 };
 
+exports.addPointsToUserAudit = (commandHistoryID, points) => {
+    return new Promise(async (resolve) => {
+        let audit = await db.query(Points.addToPointsLog(commandHistoryID, points))
+        resolve(audit.rows[0]);
+    });
+}
+
 exports.getLeaderboardByPageNumber = (pageNumber) => {
     return new Promise(async (resolve) => {
         let lb = await db.query(Points.getLeaderboardByPageNumber(pageNumber));

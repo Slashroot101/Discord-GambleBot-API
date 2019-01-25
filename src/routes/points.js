@@ -13,6 +13,16 @@ router.put('/discord-id/:discordID', async function(req, res, next){
     next();
 });
 
+router.post('/command-history/:executionID/point/:points', async function(req, res, next){
+    try {
+        const audit = await Points.addPointsToUserAudit(req.params.executionID, req.params.points);
+        responseHandler(res, {audit});
+    } catch (err) {
+        errorHandler(res, err);
+    }
+    next();
+});
+
 router.put('/user-id/:userID', async function(req, res, next){
     try {
         await Points.addPointsByUserID(req.params.userID, req.body.points);

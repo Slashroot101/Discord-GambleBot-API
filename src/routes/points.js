@@ -56,4 +56,14 @@ router.get('/page-number/:pageNumber/leaderboard', async function(req, res, next
     next();
 });
 
+router.get('/user-id/:userID/command-id/:commandID/net', async function(req, res, next){
+    try {
+        let netPoints = await Points.getNetCommandPoints(req.params.commandID, req.params.userID);
+        responseHandler(res, {netPoints});
+    } catch (err){
+        errorHandler(res, err);
+    }
+    next();
+});
+
 module.exports = router;

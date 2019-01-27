@@ -22,6 +22,14 @@ exports.addPointsByDiscordID = (discordID, points) => {
     }
 };
 
+exports.getNetCommandPoints = (commandID, userID) => {
+    return {
+        name: 'get-net-command-points',
+        text: 'SELECT * FROM net_command_points WHERE command_id = $1 and user_id = $2',
+        values: [commandID, userID]
+    }
+};
+
 exports.addPointsByUserID = (userID, points) => {
     return {
         name: 'add-user-points-by-uid',

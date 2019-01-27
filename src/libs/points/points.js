@@ -27,7 +27,14 @@ exports.addPointsToUserAudit = (commandHistoryID, points) => {
         let audit = await db.query(Points.addToPointsLog(commandHistoryID, points))
         resolve(audit.rows[0]);
     });
-}
+};
+
+exports.getNetCommandPoints = (commandID, userID) => {
+    return new Promise(async(resolve) => {
+        let netPoints = await db.query(Points.getNetCommandPoints(commandID, userID));
+        resolve(netPoints.rows[0]);
+    });
+};
 
 exports.getLeaderboardByPageNumber = (pageNumber) => {
     return new Promise(async (resolve) => {

@@ -22,11 +22,11 @@ exports.create = (duration, usages, name) => {
     }
 };
 
-exports.addToUserAudit = (commandID, userID, execDate) => {
+exports.addToUserAudit = (commandID, userID) => {
     return {
         name: 'create-user-audit',
-        text: 'INSERT INTO command_history (command_id, execution_time, user_id) VALUES ($1, $3, $2) RETURNING *',
-        values: [commandID, userID, execDate]
+        text: 'INSERT INTO command_history (command_id, execution_time, user_id) VALUES ($1, now(), $2) RETURNING *',
+        values: [commandID, userID]
     }
 };
 
@@ -47,7 +47,7 @@ exports.getCommandHistoryCountByDuration = (commandID, userID) => {
     return {
         name: 'get-command-history-by-duration',
         text: `SELECT COUNT(command_history.id) AS executedCommands,
-              commands.usages as allowedUsages FROM command_history
+              commands.usages as allowedUsages, now() as current_time FROM command_history
               JOIN commands on (commands.id = command_history.command_id)
               WHERE execution_time > (current_timestamp -  (interval '1 minutes' * (SELECT commands.duration FROM commands WHERE commands.id = $1)))
               AND command_id = $1 and user_id = $2

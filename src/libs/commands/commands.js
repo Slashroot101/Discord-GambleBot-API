@@ -22,9 +22,9 @@ exports.create = (duration, usages, name) => {
     });
 };
 
-exports.addToUserAudit = (commandID, userID, execDate = new Date()) => {
+exports.addToUserAudit = (commandID, userID) => {
     return new Promise(async (resolve) => {
-        let audit = await db.query(Commands.addToUserAudit(commandID, userID, execDate))
+        let audit = await db.query(Commands.addToUserAudit(commandID, userID))
         resolve(audit.rows[0]);
     });
 };

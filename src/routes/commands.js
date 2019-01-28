@@ -21,7 +21,7 @@ router.post('/', async function (req, res, next) {
 });
 
 router.post('/:commandID/user/:userID', async function(req, res, next){
-    let audit = await Commands.addToUserAudit(req.params.commandID, req.params.userID, new Date());
+    let audit = await Commands.addToUserAudit(req.params.commandID, req.params.userID);
     responseHandler(res, {audit})
     next();
 });
@@ -34,6 +34,7 @@ router.get('/:commandID/user/:userID/cooldown', async function(req, res, next){
         && (Number(audit.executedcommands) === audit.allowedusages
             || Number(audit.executedcommands) > audit.allowedusages)){
          oldestAudit = await Commands.getOldestAuditInDuration(req.params.commandID, req.params.userID);
+         oldestAudit.current_time = audit.current_time;
         onCooldown = true;
     } else {
         onCooldown = false;

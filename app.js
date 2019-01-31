@@ -11,6 +11,7 @@ const home = require('./src/routes/index');
 const user = require('./src/routes/user');
 const points = require('./src/routes/points');
 const commands = require('./src/routes/commands');
+const guild = require('./src/routes/guild');
 
 server.use(restify.plugins.throttle({
 	burst: 100,  	// Max 10 concurrent requests (if tokens)
@@ -26,6 +27,7 @@ router.add('/api', home);
 router.add('/user', user);
 router.add('/points', points);
 router.add('/commands', commands);
+router.add('/guild', guild);
 router.applyRoutes(server);
 
 server.on('after', restify.plugins.metrics({ server: server }, function onMetrics(err, metrics) {

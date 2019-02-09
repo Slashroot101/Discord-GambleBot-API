@@ -1,9 +1,16 @@
-let db = require(`../database`);
-let Guild = require(`./queries`);
+const db = require('../database');
+const Guild = require('./queries');
 
 exports.create = (guildID) => {
-    return new Promise(async(resolve) => {
-        let guild = await db.query(Guild.create(guildID));
-        resolve(guild.rows[0]);
-    });
+	return new Promise(async (resolve) => {
+		const guild = await db.query(Guild.create(guildID));
+		resolve(guild.rows[0]);
+	});
+};
+
+exports.createGuildBank = async (guildID) => {
+	return new Promise(async (resolve) => {
+		const guildBank = await db.query(Guild.createGuildBank(guildID));
+		resolve(guildBank.rows[0]);
+	});
 };

@@ -19,5 +19,13 @@ exports.addToPointsToGuildBank = (guildBankID, amount) => {
 		name: 'add-points-to-guild-bank',
 		text: 'UPDATE guild_banks SET points = current_balance + $2 WHERE id = $1',
 		values: [guildBankID, amount],
-	}
+	};
+};
+
+exports.getByGuildID = (guildID) => {
+	return {
+		name: 'get-guild-by-guildID',
+		text: 'SELECT * FROM guilds WHERE guild_id = $1',
+		values: [guildID],
+	};
 };

@@ -16,7 +16,15 @@ exports.createGuildBank = async (guildID) => {
 };
 
 exports.addPointsToGuildBank = async (guildID, points) => {
-	return new Promise((resolve, reject) => {
-		
+	return new Promise(async (resolve) => {
+		const guildBank = await db.query(Guild.addToPointsToGuildBank(guildID, points));
+		resolve(guildBank.rows[0]);
+	});
+};
+
+exports.getByGuildID = async(guildID) => {
+	return new Promise(async(resolve) => {
+		const guild = await db.query(Guild.getByGuildID(guildID));
+		resolve(guild.rows[0]);
 	});
 };

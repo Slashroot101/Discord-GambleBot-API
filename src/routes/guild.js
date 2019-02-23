@@ -16,4 +16,28 @@ router.post('/id/:guildID', async function(req, res, next) {
 	next();
 });
 
+router.put('/id/:guildID/points', async function(req, res, next){
+	try {
+		const guildPoints = await Guild.addPointsToGuildBank(req.params.guildID, req.params.points);
+		responseHandler(res, { guildPoints });
+	}
+	catch (err) {
+		console.log(err);
+		errorHandler(res, err);
+	}
+	next();
+});
+
+router.get('/guild-id/:id', async function(req, res, next){
+	try {
+		const guild = await Guild.getByGuildID(req.params.id);
+		responseHandler(res, { guild });
+	}
+	catch (err) {
+		console.log(err);
+		errorHandler(res, err);
+	}
+	next();
+});
+
 module.exports = router;

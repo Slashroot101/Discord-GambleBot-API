@@ -4,7 +4,7 @@ create table guild_banks
   id       serial  not null
     constraint guild_banks_pk
       primary key,
-  points   integer not null,
+  points   numeric not null,
   guild_id bigint  not null
     constraint guild_banks_guilds_id_fk
       references guilds

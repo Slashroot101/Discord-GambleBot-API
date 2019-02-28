@@ -1,11 +1,11 @@
 exports.errorHandler = (res, err) => {
-	res.json({
-		err,
-	});
+  res.json({
+    err,
+  });
 };
 
 exports.responseHandler = (res, data) => {
-	res.json({
-		data,
-	});
+  res.json({
+    data,
+  });
 };

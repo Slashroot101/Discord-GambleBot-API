@@ -1,8 +1,9 @@
 const restify = require('restify');
 const router = new (require('restify-router')).Router();
+
 const server = restify.createServer({
-	name: 'Gamble-Bot-API',
-	version: '1.0.0',
+  name: 'Gamble-Bot-API',
+  version: '1.0.0',
 });
 
 const logger = require('./basic-logger');
@@ -14,9 +15,9 @@ const commands = require('./src/routes/commands');
 const guild = require('./src/routes/guild');
 
 server.use(restify.plugins.throttle({
-	burst: 100, // Max 10 concurrent requests (if tokens)
-	rate: 2, // Steady state: 2 request / 1 seconds
-	ip: true,		// throttle per IP
+  burst: 100, // Max 10 concurrent requests (if tokens)
+  rate: 2, // Steady state: 2 request / 1 seconds
+  ip: true,		// throttle per IP
 }));
 server.use(restify.plugins.bodyParser());
 server.use(restify.plugins.acceptParser(server.acceptable));
@@ -30,14 +31,14 @@ router.add('/commands', commands);
 router.add('/guild', guild);
 router.applyRoutes(server);
 
-server.on('after', restify.plugins.metrics({ server: server }, function onMetrics(err, metrics) {
-	logger.trace(`${metrics.method} ${metrics.path} ${metrics.statusCode} ${metrics.latency} ms`);
+server.on('after', restify.plugins.metrics({ server }, (err, metrics) => {
+  logger.trace(`${metrics.method} ${metrics.path} ${metrics.statusCode} ${metrics.latency} ms`);
 }));
 
-server.listen(8080, function() {
-	logger.info('%s listening at %s', server.name, server.url);
+server.listen(8080, () => {
+  logger.info('%s listening at %s', server.name, server.url);
 });
 
-server.on('uncaughtException', function(req, res, route, err) {
-	logger.error(err);
+server.on('uncaughtException', (req, res, route, err) => {
+  logger.error(err);
 });

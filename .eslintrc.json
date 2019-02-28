@@ -1,3 +1,9 @@
 {
-  "extends": ["airbnb"]
+  "extends": ["airbnb"],
+  "rules": {
+    "import/no-dynamic-require": "warn",
+    "global-require": "warn",
+    "no-mixed-spaces-and-tabs": "off",
+    "no-tabs": "off"
+  }
 }

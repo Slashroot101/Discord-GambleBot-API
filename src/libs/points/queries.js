@@ -12,7 +12,7 @@ exports.addToPointsLog = (commandHistoryID, points) => ({
 
 exports.addPointsByDiscordID = (discordID, points) => ({
   name: 'add-user-points-by-did',
-  text: 'UPDATE points SET points.current_balance = points.current_balance + $2, points.total_points_gained =  total_points_gained + CASE When $2 < 0 THEN 0 ELSE $2 END JOIN USERS ON users.id = points.user_id WHERE users.discord_id = $1',
+  text: 'UPDATE points SET points.current_balance = points.current_balance + $2, points.total_points_gained =  total_points_gained + CASE When $2 < 0 THEN 0 ELSE $2 END JOIN users ON users.id = points.user_id WHERE users.discord_id = $1',
   values: [discordID, points],
 });
 

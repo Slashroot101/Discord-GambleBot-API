@@ -4,16 +4,6 @@ const Guild = require('../libs/guild/guild');
 const { responseHandler, errorHandler } = require('../libs/responseHandler');
 const config = require('../../config');
 
-router.put('/discord-id/:discordID', async (req, res, next) => {
-  try {
-    await Points.addPointsByDiscordID(req.params.discordID, req.body.points);
-    responseHandler(res, {});
-  } catch (err) {
-    errorHandler(res, err);
-  }
-  next();
-});
-
 router.post('/command-history/:executionID/point/:points', async (req, res, next) => {
   try {
     const audit = await Points.addPointsToUserAudit(req.params.executionID, req.params.points);
@@ -26,12 +16,13 @@ router.post('/command-history/:executionID/point/:points', async (req, res, next
 
 router.put('/user-id/:userID', async (req, res, next) => {
   try {
-  	let guildTaxPoints = 0;
-  	if (req.body.points > 0) {
-  		guildTaxPoints = req.body.points * config.taxes.guild;
-  		await Guild.addPointsToGuildBank(req.params.guildID, guildTaxPoints);
-  	}
-    await Points.addPointsByUserID(req.params.userID, Math.ceil(req.body.points - guildTaxPoints));
+    let guildTaxPoints = 0;
+    if (req.body.points > 0) {
+      guildTaxPoints = req.body.points * config.taxes.guild;
+      await Guild.addPointsToGuildBank(req.body.guildID, guildTaxPoints);
+    }
+    console.log(req.body.points, guildTaxPoints, req.body.points - guildTaxPoints)
+    await Points.addPointsByUserID(req.params.userID, (req.body.points - guildTaxPoints));
     responseHandler(res, {});
   } catch (err) {
     errorHandler(res, err);

@@ -12,7 +12,7 @@ exports.createGuildBank = guildID => ({
 
 exports.addToPointsToGuildBank = (guildBankID, amount) => ({
   name: 'add-points-to-guild-bank',
-  text: 'UPDATE guild_banks SET points = current_balance + $2 WHERE id = $1',
+  text: 'UPDATE guild_banks SET points = points + $2 FROM guilds WHERE guilds.guild_id = $1',
   values: [guildBankID, amount],
 });
 

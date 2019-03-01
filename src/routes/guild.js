@@ -5,7 +5,7 @@ const { responseHandler, errorHandler } = require('../libs/responseHandler');
 router.post('/id/:guildID', async (req, res, next) => {
   try {
     const guild = await Guild.create(req.params.guildID);
-    if (guild.length > 0) {
+    if (guild) {
       await Guild.createGuildBank(guild.id);
     }
     responseHandler(res, { guild });
@@ -20,7 +20,6 @@ router.put('/id/:guildID/points', async (req, res, next) => {
     const guildPoints = await Guild.addPointsToGuildBank(req.params.guildID, req.params.points);
     responseHandler(res, { guildPoints });
   } catch (err) {
-    console.log(err);
     errorHandler(res, err);
   }
   next();

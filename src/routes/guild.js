@@ -37,9 +37,9 @@ router.get('/guild-id/:id', async (req, res, next) => {
 
 router.get('/discord-guild-id/:id/bank', async (req, res, next) => {
   try {
-    const guildBank = await Guild.getByGuildID(req.params.id);
+    const guildBank = await Guild.getGuildBankByGuildID(req.params.id);
     responseHandler(res, { guildBank });
-  } catch (err){
+  } catch (err) {
     errorHandler(res, err);
   }
   next();

@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ecaa8f0-7f8c-4610-b4ae-eb6e5406f58e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/guild/guild.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/guild/guild.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/guild/queries.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/guild/queries.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/guild.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/guild.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/routes/guild.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
-              <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+            <state relative-caret-position="768">
+              <caret line="39" column="55" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -215,12 +212,12 @@
       <workItem from="1551312603118" duration="5805000" />
       <workItem from="1551412759914" duration="3959000" />
       <workItem from="1551496131482" duration="1605000" />
-      <workItem from="1551499269028" duration="3119000" />
+      <workItem from="1551499269028" duration="3742000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48464000" />
+    <option name="totallyTimeSpent" value="49087000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2554" y="-904" width="2729" height="1501" extended-state="6" />
@@ -419,8 +416,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/guild.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+        <state relative-caret-position="768">
+          <caret line="39" column="55" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="55" />
         </state>
       </provider>
     </entry>

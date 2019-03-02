@@ -16,6 +16,12 @@ exports.addToPointsToGuildBank = (guildBankID, amount) => ({
   values: [guildBankID, amount],
 });
 
+exports.getGuildBankByGuildID = guildBankID => ({
+  name: 'get-guild-bank-by-guild-id',
+  text: 'SELECT * FROM guild_banks JOIN guilds on guild_banks.guild_id = guilds.id WHERE guilds.guild_id = $1',
+  values: [guildBankID],
+});
+
 exports.getByGuildID = guildID => ({
   name: 'get-guild-by-guildID',
   text: 'SELECT * FROM guilds WHERE guild_id = $1',

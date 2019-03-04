@@ -7,4 +7,12 @@ module.exports = {
     port: 5432, // db port
     capSQL: true, // capitalize queries
   },
+  daily: {
+    min: 0,
+    max: 10,
+  },
+  taxes: {
+    guild: 0.1,
+    global: 0.2,
+  },
 };

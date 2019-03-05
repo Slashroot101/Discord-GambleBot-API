@@ -17,7 +17,7 @@ exports.addPointsToGuildBank = async (guildID, points) => new Promise(async (res
 });
 
 exports.getGuildBankByGuildID = async guildID => new Promise(async(resolve) => {
-  const guildBank = await db.query(Guild.getByGuildID(guildID));
+  const guildBank = await db.query(Guild.getGuildBankByGuildID(guildID));
   resolve(guildBank.rows[0]);
 });
 

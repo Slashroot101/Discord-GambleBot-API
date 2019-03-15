@@ -1,6 +1,6 @@
 exports.create = (guildID, global = false) => ({
   name: 'create-guild',
-  text: 'INSERT INTO guilds(guild_id, join_date) VALUES ($1, now()) ON CONFLICT(guild_id) DO NOTHING RETURNING *',
+  text: 'INSERT INTO guilds(guild_id, join_date, global) VALUES ($1, now(), $2) ON CONFLICT(guild_id) DO NOTHING RETURNING *',
   values: [guildID, global],
 });
 

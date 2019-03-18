@@ -6,13 +6,13 @@ const server = restify.createServer({
   version: '1.0.0',
 });
 
-const logger = require('./basic-logger');
+const logger = require('../basic-logger');
 
-const home = require('./src/routes/index');
-const user = require('./src/routes/user');
-const points = require('./src/routes/points');
-const commands = require('./src/routes/commands');
-const guild = require('./src/routes/guild');
+const home = require('./routes');
+const user = require('./routes/user');
+const points = require('./routes/points');
+const commands = require('./routes/commands');
+const guild = require('./routes/guild');
 
 server.use(restify.plugins.throttle({
   burst: 100, // Max 10 concurrent requests (if tokens)

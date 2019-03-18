@@ -14,7 +14,7 @@ router.post('/', async (req, res, next) => {
 
 router.get('/user/:userID/active', async (req, res, next) => {
   try {
-    const activeLotteries = await Lottery.getActiveLotteryForUserByUserID();
+    const activeLotteries = await Lottery.getActiveLotteryForUserByUserID(req.params.userID);
     responseHandler(res, { lottery: activeLotteries });
   } catch (err) {
     errorHandler(res, err);
@@ -22,15 +22,22 @@ router.get('/user/:userID/active', async (req, res, next) => {
   next();
 });
 
-router.put('/:lotteryID:/status', async(req, res, next) => {
+router.put('/:lotteryID/status', async(req, res, next) => {
   try {
     const updatedLottery = await Lottery.setLotteryStatus(req.params.lotteryID, req.params.isDone);
-    responseHandler(res, { lottery: updatedLottery })
+    responseHandler(res, { lottery: updatedLottery });
   } catch (err) {
     errorHandler(res, err);
   }
   next();
 });
 
+router.get('/:lotteryID/winner', async (req, res, next) => {
+  try {
+  } catch (err){
+    errorHandler(res, err);
+  }
+  next();
+});
 
 module.exports = router;

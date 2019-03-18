@@ -23,3 +23,13 @@ exports.setLotteryStatus = (lotteryID, isDone) => new Promise(async (resolve) =>
   const updatedLottery = await db.query(Lottery.setLotteryStatus(lotteryID, isDone));
   resolve(updatedLottery.rows[0]);
 });
+
+exports.getLotteryWinner = lotteryID => new Promise(async (resolve) => {
+  const lotteryWinner = await db.query(Lottery.getLotteryWinner(lotteryID));
+  resolve(lotteryWinner.rows[0]);
+});
+
+exports.getLotteryJackpot = lotteryID => new Promise(async (resolve) => {
+  const lotteryJackpot = await db.query(Lottery.getLotteryJackpot(lotteryID));
+  resolve(lotteryJackpot.rows[0]);
+});

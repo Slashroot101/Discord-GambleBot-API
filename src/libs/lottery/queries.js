@@ -23,3 +23,15 @@ exports.setLotteryStatus = (lotteryID, isDone) => ({
   text: 'UPDATE lottery SET is_done = $2 WHERE id = $1',
   values: [lotteryID, isDone],
 });
+
+exports.getLotteryWinner = lotteryID => ({
+  name: 'get-lottery-winner',
+  text: 'SELECT * lottery_tickets WHERE guild_id = $1 ORDER BY RANDOM() LIMIT 1',
+  values: [lotteryID],
+});
+
+exports.getLotteryJackpot = lotteryID => ({
+  name: 'get-jackpot',
+  text: 'SELECT * FROM lottery_jackpots WHERE lottery_id = $1',
+  values: [lotteryID],
+});

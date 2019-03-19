@@ -24,7 +24,7 @@ exports.setLotteryStatus = (lotteryID, isDone) => new Promise(async (resolve) =>
   resolve(updatedLottery.rows[0]);
 });
 
-exports.getLotteryWinner = lotteryID => new Promise(async (resolve) => {
+exports.pickLotteryWinner = lotteryID => new Promise(async (resolve) => {
   const lotteryWinner = await db.query(Lottery.getLotteryWinner(lotteryID));
   resolve(lotteryWinner.rows[0]);
 });

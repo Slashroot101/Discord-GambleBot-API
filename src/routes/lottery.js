@@ -13,6 +13,16 @@ router.post('/', async (req, res, next) => {
   next();
 });
 
+router.get('/:id', async (req, res, next) =>  {
+  try {
+    const lottery = await Lottery.getLotteryByID(req.params.id);
+    responseHandler(res, { lottery });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+  next();
+});
+
 router.get('/user/:userID/active', async (req, res, next) => {
   try {
     const activeLotteries = await Lottery.getActiveLotteryForUserByUserID(req.params.userID);
@@ -35,14 +45,14 @@ router.put('/:lotteryID/status', async (req, res, next) => {
 
 router.get('/:lotteryID/winner', async (req, res, next) => {
   try {
-    const [ lotteryWinner, jackpotTotal] = await Promise.all([
+    const [lotteryWinner, jackpotTotal] = await Promise.all([
       Lottery.getLotteryWinner(req.params.lotteryID),
       Lottery.getLotteryJackpot(req.params.lotteryID)
     ]);
     await Lottery.setLotteryStatus(req.params.lotteryID, true)
     await Points.addPointsByUserID(lotteryWinner.user_id, jackpotTotal.jackpot);
     responseHandler(res, { jackpotTotal });
-  } catch (err){
+  } catch (err) {
     errorHandler(res, err);
   }
   next();

@@ -34,4 +34,7 @@ exports.getLotteryJackpot = lotteryID => new Promise(async (resolve) => {
   resolve(lotteryJackpot.rows[0]);
 });
 
-exports.getLotteryByID = lotteryID
+exports.getLotteryByID = lotteryID => new Promise(async(resolve) => {
+  const lottery = await db.query(Lottery.getLotteryByID(lotteryID));
+  resolve(lottery.rows[0]);
+});

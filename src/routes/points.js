@@ -21,7 +21,6 @@ router.put('/user-id/:userID', async (req, res, next) => {
       guildTaxPoints = req.body.points * config.taxes.guild;
       await Guild.addPointsToGuildBank(req.body.guildID, guildTaxPoints);
     }
-    console.log(req.body.points, guildTaxPoints, req.body.points - guildTaxPoints)
     await Points.addPointsByUserID(req.params.userID, (req.body.points - guildTaxPoints));
     responseHandler(res, {});
   } catch (err) {

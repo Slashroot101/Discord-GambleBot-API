@@ -13,6 +13,7 @@ const user = require('./routes/user');
 const points = require('./routes/points');
 const commands = require('./routes/commands');
 const guild = require('./routes/guild');
+const lottery = require('./routes/lottery');
 const lotteryTickets = require('./routes/lotteryTickets');
 
 server.use(restify.plugins.throttle({
@@ -30,6 +31,7 @@ router.add('/user', user);
 router.add('/points', points);
 router.add('/commands', commands);
 router.add('/guild', guild);
+router.add('/lottery', lottery);
 router.add('/lottery-ticket', lotteryTickets);
 router.applyRoutes(server);
 

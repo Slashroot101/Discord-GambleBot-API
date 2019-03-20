@@ -1,4 +1,3 @@
--- auto-generated definition
 create table command_history
 (
   id             serial                   not null

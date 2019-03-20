@@ -1,21 +1,20 @@
--- auto-generated definition
 create table lottery_tickets
 (
-  id          serial  not null
+  id         serial                                 not null
     constraint lottery_tickets_pk
       primary key,
-  lottery_id  integer not null
+  lottery_id integer                                not null
     constraint lottery_tickets_lottery_id_fk
       references lottery,
-  num_tickets integer not null,
-  user_id     integer not null
+  user_id    integer                                not null
     constraint lottery_tickets_users_id_fk
-      references users
+      references users,
+  created_on timestamp with time zone default now() not null
 );
 
 alter table lottery_tickets
   owner to postgres;
 
 create unique index lottery_tickets_id_uindex
-  on lottery_tickets (id);
+on lottery_tickets (id);
 

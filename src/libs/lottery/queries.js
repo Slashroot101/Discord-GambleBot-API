@@ -14,7 +14,7 @@ exports.create = lottery => ({
 
 exports.getActiveLotteryForUserByUserID = userID => ({
   name: 'get-lotteries-for-user',
-  text: 'SELECT * FROM lottery WHERE user_id = $1 AND is_done = false',
+  text: 'SELECT * FROM lottery WHERE created_by = $1 AND is_done = false',
   values: [userID],
 });
 
@@ -34,4 +34,10 @@ exports.getLotteryJackpot = lotteryID => ({
   name: 'get-jackpot',
   text: 'SELECT * FROM lottery_jackpots WHERE lottery_id = $1',
   values: [lotteryID],
+});
+
+exports.getLotteryByID = lotteryID => ({
+  name: 'get-lottery-by-id',
+  text: 'SELECT * FROM lottery WHERE id = $1',
+  values: lotteryID,
 });

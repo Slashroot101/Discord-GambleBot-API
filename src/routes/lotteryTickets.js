@@ -19,7 +19,7 @@ router.post('/', async (req, res, next) => {
   next();
 });
 
-router.get('/lottery/:lotteryID/user/:userID/tickets', async(req, res, next) => {
+router.get('/lottery/:lotteryID/user/:userID/tickets', async (req, res, next) => {
   try {
     const tickets = await LotteryTicket.getForUser(req.params.userID, req.params.lotteryID);
     responseHandler(res, { tickets });
@@ -29,13 +29,14 @@ router.get('/lottery/:lotteryID/user/:userID/tickets', async(req, res, next) => 
   next();
 });
 
-router.get('/lottery/:id/numTickets', async(req, res, next) => {
+router.get('/lottery/:id/numTickets', async (req, res, next) => {
   try {
-    let numTickets = await LotteryTicket.getNumberOfTotalTickets(req.params.id);
+    const numTickets = await LotteryTicket.getNumberOfTotalTickets(req.params.id);
     responseHandler(res, {numTickets});
   } catch (err){
     errorHandler(res, err);
   }
+  next();
 });
 
 module.exports = router;

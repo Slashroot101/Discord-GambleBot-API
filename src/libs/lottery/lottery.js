@@ -14,6 +14,8 @@ exports.create = lotteryObject => new Promise(async (resolve) => {
   resolve(lottery.rows[0]);
 });
 
+
+
 exports.getActiveLotteryForUserByUserID = userID => new Promise(async (resolve) => {
   const activeLotteries = await db.query(Lottery.getActiveLotteryForUserByUserID(userID));
   resolve(activeLotteries.rows[0]);
@@ -34,7 +36,12 @@ exports.getLotteryJackpot = lotteryID => new Promise(async (resolve) => {
   resolve(lotteryJackpot.rows[0]);
 });
 
-exports.getLotteryByID = lotteryID => new Promise(async(resolve) => {
+exports.getLotteryByID = lotteryID => new Promise(async (resolve) => {
   const lottery = await db.query(Lottery.getLotteryByID(lotteryID));
   resolve(lottery.rows[0]);
+});
+
+exports.getLotteryForGuildByDiscordGuildID = guildID => new Promise(async (resolve) => {
+  const guildLottery = await db.query(Lottery.getLotteryForGuildByDiscordGuildID(guildID));
+  resolve(guildLottery.rows[0]);
 });

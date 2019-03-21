@@ -4,6 +4,8 @@
     "import/no-dynamic-require": "warn",
     "global-require": "warn",
     "no-mixed-spaces-and-tabs": "off",
-    "no-tabs": "off"
+    "no-tabs": "off",
+    "linebr ": "off",
+    "linebreak-style": "off"
   }
 }

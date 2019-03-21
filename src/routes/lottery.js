@@ -13,7 +13,7 @@ router.post('/', async (req, res, next) => {
   next();
 });
 
-router.get('/:id', async (req, res, next) =>  {
+router.get('/:id', async (req, res, next) => {
   try {
     const lottery = await Lottery.getLotteryByID(req.params.id);
     responseHandler(res, { lottery });
@@ -46,12 +46,23 @@ router.put('/:lotteryID/status', async (req, res, next) => {
 router.get('/:lotteryID/winner', async (req, res, next) => {
   try {
     const [lotteryWinner, jackpotTotal] = await Promise.all([
-      Lottery.getLotteryWinner(req.params.lotteryID),
-      Lottery.getLotteryJackpot(req.params.lotteryID)
+      Lottery.pickLotteryWinner(req.params.lotteryID),
+      Lottery.getLotteryJackpot(req.params.lotteryID),
+      Lottery.setLotteryStatus(req.params.lotteryID, true),
     ]);
-    await Lottery.setLotteryStatus(req.params.lotteryID, true)
+    await Lottery.setLotteryStatus(req.params.lotteryID, true);
     await Points.addPointsByUserID(lotteryWinner.user_id, jackpotTotal.jackpot);
     responseHandler(res, { jackpotTotal });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+  next();
+});
+
+router.get('/guild/:id', async (req, res, next) => {
+  try {
+    const guildLottery = await Lottery.getLotteryForGuildByDiscordGuildID(req.params.id);
+    responseHandler(res, { lottery: guildLottery });
   } catch (err) {
     errorHandler(res, err);
   }

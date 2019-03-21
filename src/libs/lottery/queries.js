@@ -39,5 +39,11 @@ exports.getLotteryJackpot = lotteryID => ({
 exports.getLotteryByID = lotteryID => ({
   name: 'get-lottery-by-id',
   text: 'SELECT * FROM lottery WHERE id = $1',
-  values: lotteryID,
+  values: [lotteryID],
+});
+
+exports.getLotteryForGuildByDiscordGuildID = guildID => ({
+  name: 'get-lottery-for-guild',
+  text: 'SELECT * FROM lottery JOIN guilds on guilds.id = lottery.guild_id where guilds.guild_id = $1',
+  values: [guildID]
 });

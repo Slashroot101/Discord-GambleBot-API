@@ -3,7 +3,6 @@ const LotteryTickets = require('./queries');
 
 exports.create = (userID, lotteryID) => new Promise(async (resolve) => {
   const lotteryTicket = await db.query(LotteryTickets.create(userID, lotteryID));
-  console.log(lotteryTicket.rows);
   resolve(lotteryTicket.rows[0]);
 });
 

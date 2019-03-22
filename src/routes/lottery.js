@@ -3,6 +3,22 @@ const Lottery = require('../libs/lottery/lottery');
 const Points = require('../libs/points/points');
 const { responseHandler, errorHandler } = require('../libs/responseHandler');
 
+router.put('/queue/status', async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const lotteryStatusUpdatePromises = [];
+    req.body.lotteryIds.forEach(element => {
+      lotteryStatusUpdatePromises.push(Lottery.setConsumedByQueue(element));
+    });
+    await Promise.all(lotteryStatusUpdatePromises);
+    responseHandler(res, { success: true});
+  } catch (err) {
+    console.log(err)
+    errorHandler(res, err);
+  }
+  next();
+});
+
 router.post('/', async (req, res, next) => {
   try {
     if (req.body.lottery.endDate > req.body.lottery.startDate
@@ -87,14 +103,6 @@ router.get('/guild/:id', async (req, res, next) => {
   next();
 });
 
-router.put('/:id/queue/status', async (req, res, next) => {
-  try {
-    const updatedLottery = await Lottery.setConsumedByQueue(req.params.id);
-    responseHandler(res, { lottery: updatedLottery });
-  } catch (err) {
-    errorHandler(res, err);
-  }
-  next();
-});
+
 
 module.exports = router;

@@ -4,17 +4,13 @@ const { responseHandler, errorHandler } = require('../libs/responseHandler');
 
 router.post('/', async (req, res, next) => {
   try {
-    const createdGuildPromises = [];
-    const createdGuildBankPromises = [];
     req.body.guilds.forEach(async (element) => {
-      const guild = createdGuildPromises.push(Guild.create(element));
+      const guild = await Guild.create(element);
       if (guild) {
-        createdGuildBankPromises.push(Guild.createGuildBank(guild.id));
+        await Guild.createGuildBank(guild.id);
       }
     });
-    const createdGuilds = await Promise.all(createdGuildPromises);
-    const createdGuildBanks = await Promise.all(createdGuildBankPromises);
-    responseHandler(res, { guilds: createdGuilds, banks: createdGuildBanks });
+    responseHandler(res, { guilds: req.body.guilds });
   } catch (err) {
     errorHandler(res, err);
   }

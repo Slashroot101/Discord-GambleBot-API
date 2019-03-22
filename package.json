@@ -8,7 +8,7 @@
 		"boilerplate"
 	],
 	"scripts": {
-		"start": "node app.js"
+		"start": "node ./src/app.js"
 	},
 	"dependencies": {
 		"bunyan": "^1.8.12",

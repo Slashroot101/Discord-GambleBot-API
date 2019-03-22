@@ -14,7 +14,11 @@ exports.create = lotteryObject => new Promise(async (resolve) => {
   resolve(lottery.rows[0]);
 });
 
-
+exports.getExpiredLotteries = () => new Promise(async (resolve) => {
+  const expiredLotteries = await db.query(Lottery.getAllExpiredLotteries());
+  console.log(expiredLotteries.rows)
+  resolve(expiredLotteries.rows);
+});
 
 exports.getActiveLotteryForUserByUserID = userID => new Promise(async (resolve) => {
   const activeLotteries = await db.query(Lottery.getActiveLotteryForUserByUserID(userID));

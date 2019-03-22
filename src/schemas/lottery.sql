@@ -1,4 +1,4 @@
-create table public.lottery
+create table lottery
 (
   id            serial                   not null
     constraint lottery_pk
@@ -19,9 +19,9 @@ create table public.lottery
       references users
 );
 
-alter table public.lottery
+alter table lottery
   owner to postgres;
 
 create unique index lottery_id_uindex
-  on public.lottery (id);
+on lottery (id);
 

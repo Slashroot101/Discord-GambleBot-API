@@ -5,8 +5,22 @@ const { responseHandler, errorHandler } = require('../libs/responseHandler');
 
 router.post('/', async (req, res, next) => {
   try {
+    if (req.body.lottery.endDate > req.body.lottery.startDate
+        || req.body.lottery.startDate === req.body.lottery.endDate) {
+      errorHandler(res, new Error('Start date cannot be larger than end date'));
+    }
     const newLottery = await Lottery.create(req.body.lottery);
     responseHandler(res, { lottery: newLottery });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+  next();
+});
+
+router.get('/expired', async (req, res, next) => {
+  try {
+    const expiredLotteries = await Lottery.getExpiredLotteries();
+    responseHandler(res, { lottery: expiredLotteries });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -35,8 +49,12 @@ router.get('/user/:userID/active', async (req, res, next) => {
 
 router.put('/:lotteryID/status', async (req, res, next) => {
   try {
-    const updatedLottery = await Lottery.setLotteryStatus(req.params.lotteryID, req.params.isDone);
-    responseHandler(res, { lottery: updatedLottery });
+    const lotteryPromises = [];
+    req.params.lottery.forEach((element) => {
+      lotteryPromises.push(element.lotteryID, element.isDone);
+    });
+    const updatedLotteries = await Promise.all(lotteryPromises);
+    responseHandler(res, { lottery: updatedLotteries });
   } catch (err) {
     errorHandler(res, err);
   }

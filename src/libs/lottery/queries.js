@@ -12,6 +12,12 @@ exports.create = lottery => ({
   ],
 });
 
+exports.getAllExpiredLotteries = () => ({
+  name: 'get-expired-lottery',
+  text: 'SELECT * FROM lottery WHERE end_date <= NOW() AND is_done = false AND is_queued = false',
+  values: [],
+});
+
 exports.getActiveLotteryForUserByUserID = userID => ({
   name: 'get-lotteries-for-user',
   text: 'SELECT * FROM lottery WHERE created_by = $1 AND is_done = false',
@@ -44,6 +50,6 @@ exports.getLotteryByID = lotteryID => ({
 
 exports.getLotteryForGuildByDiscordGuildID = guildID => ({
   name: 'get-lottery-for-guild',
-  text: 'SELECT * FROM lottery JOIN guilds on guilds.id = lottery.guild_id where guilds.guild_id = $1',
+  text: 'SELECT * FROM lottery JOIN guilds on guilds.id = lottery.guild_id where guilds.guild_id = $1 and is_done = false',
   values: [guildID]
 });

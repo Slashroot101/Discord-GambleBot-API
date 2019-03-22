@@ -53,3 +53,9 @@ exports.getLotteryForGuildByDiscordGuildID = guildID => ({
   text: 'SELECT * FROM lottery JOIN guilds on guilds.id = lottery.guild_id where guilds.guild_id = $1 and is_done = false',
   values: [guildID]
 });
+
+exports.setConsumedByQueue = lotteryID => ({
+  name: 'set-consumed-by-queue',
+  text: 'UPDATE lottery SET is_queued = true WHERE id = $1 RETURNING *',
+  values: [lotteryID],
+});

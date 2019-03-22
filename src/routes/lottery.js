@@ -87,4 +87,14 @@ router.get('/guild/:id', async (req, res, next) => {
   next();
 });
 
+router.put('/:id/queue/status', async (req, res, next) => {
+  try {
+    const updatedLottery = await Lottery.setConsumedByQueue(req.params.id);
+    responseHandler(res, { lottery: updatedLottery });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+  next();
+});
+
 module.exports = router;

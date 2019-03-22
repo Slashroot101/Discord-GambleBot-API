@@ -3,13 +3,13 @@ const Lottery = require('./queries');
 
 exports.create = lotteryObject => new Promise(async (resolve) => {
   const lottery = await db.query(Lottery.create(
-    lotteryObject.localityType,
-    lotteryObject.guildID,
-    lotteryObject.startDate,
-    lotteryObject.endDate,
-    lotteryObject.ticketCost,
-    lotteryObject.maxTickets,
-    lotteryObject.isDone,
+      lotteryObject.localityType,
+      lotteryObject.guildID,
+      lotteryObject.startDate,
+      lotteryObject.endDate,
+      lotteryObject.ticketCost,
+      lotteryObject.maxTickets,
+      lotteryObject.isDone,
   ));
   resolve(lottery.rows[0]);
 });
@@ -48,4 +48,9 @@ exports.getLotteryByID = lotteryID => new Promise(async (resolve) => {
 exports.getLotteryForGuildByDiscordGuildID = guildID => new Promise(async (resolve) => {
   const guildLottery = await db.query(Lottery.getLotteryForGuildByDiscordGuildID(guildID));
   resolve(guildLottery.rows[0]);
+});
+
+exports.setConsumedByQueue = lotteryID => new Promise(async (resolve) => {
+  const updatedGuild = await db.query(Lottery.setConsumedByQueue(lotteryID));
+  resolve(updatedGuild.rows[0]);
 });

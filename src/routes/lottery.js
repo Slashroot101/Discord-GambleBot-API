@@ -39,6 +39,7 @@ router.get('/expired', async (req, res, next) => {
     const expiredLotteries = await Lottery.getExpiredLotteries();
     responseHandler(res, { lottery: expiredLotteries });
   } catch (err) {
+    console.log(err)
     errorHandler(res, err);
   }
   next();

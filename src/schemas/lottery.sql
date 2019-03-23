@@ -1,3 +1,4 @@
+-- auto-generated definition
 create table lottery
 (
   id            serial                   not null
@@ -16,6 +17,10 @@ create table lottery
   is_done       boolean default false    not null,
   created_by    integer
     constraint lottery_users_id_fk
+      references users,
+  is_queued     boolean default false,
+  winner        integer
+    constraint lottery_users_id_fk_2
       references users
 );
 
@@ -23,5 +28,5 @@ alter table lottery
   owner to postgres;
 
 create unique index lottery_id_uindex
-on lottery (id);
+  on lottery (id);
 

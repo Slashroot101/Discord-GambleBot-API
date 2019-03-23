@@ -1,19 +1,20 @@
 const router = new (require('restify-router')).Router();
 const Lottery = require('../libs/lottery/lottery');
 const Points = require('../libs/points/points');
+const { getByID } = require('../libs/guild/guild');
 const { responseHandler, errorHandler } = require('../libs/responseHandler');
 
 router.put('/queue/status', async (req, res, next) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const lotteryStatusUpdatePromises = [];
-    req.body.lotteryIds.forEach(element => {
+    req.body.lotteryIds.forEach((element) => {
       lotteryStatusUpdatePromises.push(Lottery.setConsumedByQueue(element));
     });
     await Promise.all(lotteryStatusUpdatePromises);
-    responseHandler(res, { success: true});
+    responseHandler(res, { success: true });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     errorHandler(res, err);
   }
   next();
@@ -77,16 +78,25 @@ router.put('/:lotteryID/status', async (req, res, next) => {
   next();
 });
 
-router.get('/:lotteryID/winner', async (req, res, next) => {
+router.post('/:lotteryID/winner', async (req, res, next) => {
   try {
     const [lotteryWinner, jackpotTotal] = await Promise.all([
       Lottery.pickLotteryWinner(req.params.lotteryID),
       Lottery.getLotteryJackpot(req.params.lotteryID),
       Lottery.setLotteryStatus(req.params.lotteryID, true),
     ]);
-    await Lottery.setLotteryStatus(req.params.lotteryID, true);
-    await Points.addPointsByUserID(lotteryWinner.user_id, jackpotTotal.jackpot);
-    responseHandler(res, { jackpotTotal });
+
+    if (lotteryWinner.user_id) {
+      await Promise.all([
+        Lottery.setLotteryStatus(req.params.lotteryID, true),
+        Points.addPointsByUserID(lotteryWinner.user_id, jackpotTotal.jackpot),
+        Lottery.setWinner(req.params.lotteryID, lotteryWinner.user_id),
+      ]);
+    }
+
+    const guild = await getByID(lotteryWinner.guild_id);
+
+    responseHandler(res, { jackpotTotal, lotteryWinner, guild });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -102,7 +112,6 @@ router.get('/guild/:id', async (req, res, next) => {
   }
   next();
 });
-
 
 
 module.exports = router;

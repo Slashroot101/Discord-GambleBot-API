@@ -27,3 +27,9 @@ exports.getByGuildID = guildID => ({
   text: 'SELECT * FROM guilds WHERE guild_id = $1',
   values: [guildID],
 });
+
+exports.getByID = id => ({
+  name: 'get-guild-by-id',
+  text: 'SELECT * FROM guilds WHERE id = $1',
+  values: [id],
+});

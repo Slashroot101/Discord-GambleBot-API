@@ -54,3 +54,8 @@ exports.setConsumedByQueue = lotteryID => new Promise(async (resolve) => {
   const updatedGuild = await db.query(Lottery.setConsumedByQueue(lotteryID));
   resolve(updatedGuild.rows[0]);
 });
+
+exports.setWinner = (lotteryID, userID) => new Promise(async (resolve) => {
+  const lottery = await db.query(Lottery.setWinner(lotteryID, userID));
+  resolve(lottery.rows[0]);
+});

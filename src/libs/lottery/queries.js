@@ -32,7 +32,7 @@ exports.setLotteryStatus = (lotteryID, isDone) => ({
 
 exports.getLotteryWinner = lotteryID => ({
   name: 'get-lottery-winner',
-  text: 'SELECT * lottery_tickets WHERE guild_id = $1 ORDER BY RANDOM() LIMIT 1',
+  text: 'SELECT * FROM lottery_tickets JOIN lottery on lottery_tickets.lottery_id = lottery.id WHERE lottery_id = $1 ORDER BY RANDOM() LIMIT 1',
   values: [lotteryID],
 });
 
@@ -58,4 +58,10 @@ exports.setConsumedByQueue = lotteryID => ({
   name: 'set-consumed-by-queue',
   text: 'UPDATE lottery SET is_queued = true WHERE id = $1 RETURNING *',
   values: [lotteryID],
+});
+
+exports.setWinner = (lotteryID, userID) => ({
+  name: 'set-lottery-winner',
+  text: 'UPDATE lottery SET winner = $1 WHERE id = $2',
+  values: [userID, lotteryID],
 });

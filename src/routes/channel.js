@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
     } else {
       guild = await getGuildByDiscordID(req.body.guildID);
     }
-  console.log(guild)
+
     const createdChannel = await Channel.create(
       req.body.discordChannelID,
       req.body.createdBy,
@@ -20,7 +20,6 @@ router.post('/', async (req, res, next) => {
     );
     responseHandler(res, { channel: createdChannel });
   } catch (err) {
-    console.log(err);
     errorHandler(res, err);
   }
   next();

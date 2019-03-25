@@ -22,12 +22,17 @@ router.put('/queue/status', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    if (req.body.lottery.endDate > req.body.lottery.startDate
-        || req.body.lottery.startDate === req.body.lottery.endDate) {
-      errorHandler(res, new Error('Start date cannot be larger than end date'));
+    const overlapLottery = await Lottery.findPossibleOverlap(
+      req.body.lottery.duration,
+      req.body.lottery.guildID,
+    );
+
+    if (overlapLottery.length !== 0) {
+      responseHandler(res, { lottery: {} });
+    } else {
+      const newLottery = await Lottery.create(req.body.lottery);
+      responseHandler(res, { lottery: newLottery });
     }
-    const newLottery = await Lottery.create(req.body.lottery);
-    responseHandler(res, { lottery: newLottery });
   } catch (err) {
     errorHandler(res, err);
   }
@@ -113,7 +118,7 @@ router.post('/:lotteryID/winner', async (req, res, next) => {
   next();
 });
 
-router.get('/guild/:id', async (req, res, next) => {
+router.get('/discord-guild/:id', async (req, res, next) => {
   try {
     const guildLottery = await Lottery.getLotteryForGuildByDiscordGuildID(req.params.id);
     responseHandler(res, { lottery: guildLottery });

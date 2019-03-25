@@ -2,16 +2,13 @@ const db = require('../database');
 const Lottery = require('./queries');
 
 exports.create = lotteryObject => new Promise(async (resolve) => {
-  const lottery = await db.query(Lottery.create(
-    lotteryObject.localityType,
-    lotteryObject.guildID,
-    lotteryObject.startDate,
-    lotteryObject.endDate,
-    lotteryObject.ticketCost,
-    lotteryObject.maxTickets,
-    lotteryObject.isDone,
-  ));
+  const lottery = await db.query(Lottery.create(lotteryObject));
   resolve(lottery.rows[0]);
+});
+
+exports.findPossibleOverlap = (duration, guildID) => new Promise(async (resolve) => {
+  const overlapLottery = await db.query(Lottery.findPossibleOverlap(duration, guildID));
+  resolve(overlapLottery.rows);
 });
 
 exports.getExpiredLotteries = () => new Promise(async (resolve) => {

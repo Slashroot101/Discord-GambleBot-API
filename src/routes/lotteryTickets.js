@@ -7,8 +7,8 @@ router.post('/', async (req, res, next) => {
     const createdPromises = [];
     for (let i = 0; i < req.body.numTickets; i += 1) {
       createdPromises.push(LotteryTicket.create(
-        req.body.lotteryTicket.userID,
-        req.body.lotteryTicket.lotteryID,
+        req.body.userID,
+        req.body.lotteryID,
       ));
     }
     const lotteryTickets = await Promise.all(createdPromises);

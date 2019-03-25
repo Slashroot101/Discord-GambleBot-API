@@ -4,7 +4,7 @@ create table channels
   id                 serial  not null
     constraint channels_pk
       primary key,
-  discord_channel_id integer not null,
+  discord_channel_id bigint  not null,
   created_by         integer not null
     constraint channels_users_id_fk
       references users,
@@ -16,9 +16,9 @@ create table channels
 alter table channels
   owner to postgres;
 
-create unique index channels_discord_channel_id_uindex
-  on channels (discord_channel_id);
-
 create unique index channels_id_uindex
-  on channels (id);
+on channels (id);
+
+create unique index channels_guild_id_uindex
+on channels (guild_id);
 

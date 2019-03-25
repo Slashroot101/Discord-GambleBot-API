@@ -55,7 +55,7 @@ exports.getLotteryByID = lotteryID => ({
 
 exports.getLotteryForGuildByDiscordGuildID = guildID => ({
   name: 'get-lottery-for-guild',
-  text: 'SELECT * FROM lottery JOIN guilds on guilds.id = lottery.guild_id where guilds.guild_id = $1 and is_done = false',
+  text: 'SELECT *, lottery.id as lotteryid FROM lottery JOIN guilds on guilds.id = lottery.guild_id where guilds.guild_id = $1 and is_done = false',
   values: [guildID]
 });
 

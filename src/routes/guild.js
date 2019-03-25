@@ -22,7 +22,6 @@ router.put('/id/:guildID/points', async (req, res, next) => {
     const guildPoints = await Guild.addPointsToGuildBank(req.params.guildID, req.params.points);
     responseHandler(res, { guildPoints });
   } catch (err) {
-    console.log(err)
     errorHandler(res, err);
   }
   next();

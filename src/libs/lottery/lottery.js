@@ -3,20 +3,19 @@ const Lottery = require('./queries');
 
 exports.create = lotteryObject => new Promise(async (resolve) => {
   const lottery = await db.query(Lottery.create(
-      lotteryObject.localityType,
-      lotteryObject.guildID,
-      lotteryObject.startDate,
-      lotteryObject.endDate,
-      lotteryObject.ticketCost,
-      lotteryObject.maxTickets,
-      lotteryObject.isDone,
+    lotteryObject.localityType,
+    lotteryObject.guildID,
+    lotteryObject.startDate,
+    lotteryObject.endDate,
+    lotteryObject.ticketCost,
+    lotteryObject.maxTickets,
+    lotteryObject.isDone,
   ));
   resolve(lottery.rows[0]);
 });
 
 exports.getExpiredLotteries = () => new Promise(async (resolve) => {
   const expiredLotteries = await db.query(Lottery.getAllExpiredLotteries());
-  console.log(expiredLotteries.rows)
   resolve(expiredLotteries.rows);
 });
 

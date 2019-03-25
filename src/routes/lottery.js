@@ -3,10 +3,11 @@ const Lottery = require('../libs/lottery/lottery');
 const Points = require('../libs/points/points');
 const { getByID } = require('../libs/guild/guild');
 const { responseHandler, errorHandler } = require('../libs/responseHandler');
+const { getForGuildID } = require('../libs/channels/channels');
+const { getByID: getUserByID } = require('../libs/user/users');
 
 router.put('/queue/status', async (req, res, next) => {
   try {
-    console.log(req.body);
     const lotteryStatusUpdatePromises = [];
     req.body.lotteryIds.forEach((element) => {
       lotteryStatusUpdatePromises.push(Lottery.setConsumedByQueue(element));
@@ -14,7 +15,6 @@ router.put('/queue/status', async (req, res, next) => {
     await Promise.all(lotteryStatusUpdatePromises);
     responseHandler(res, { success: true });
   } catch (err) {
-    console.log(err);
     errorHandler(res, err);
   }
   next();
@@ -39,7 +39,6 @@ router.get('/expired', async (req, res, next) => {
     const expiredLotteries = await Lottery.getExpiredLotteries();
     responseHandler(res, { lottery: expiredLotteries });
   } catch (err) {
-    console.log(err)
     errorHandler(res, err);
   }
   next();
@@ -95,9 +94,19 @@ router.post('/:lotteryID/winner', async (req, res, next) => {
       ]);
     }
 
-    const guild = await getByID(lotteryWinner.guild_id);
+    const [guild, channel, user] = await Promise.all([
+      getByID(lotteryWinner.guild_id),
+      getForGuildID(lotteryWinner.guild_id),
+      getUserByID(lotteryWinner.user_id),
+    ]);
 
-    responseHandler(res, { jackpotTotal, lotteryWinner, guild });
+    responseHandler(res, {
+      jackpotTotal,
+      lotteryWinner,
+      guild,
+      channel,
+      user,
+    });
   } catch (err) {
     errorHandler(res, err);
   }

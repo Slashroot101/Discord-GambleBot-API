@@ -15,3 +15,8 @@ exports.deleteByID = async channelID => new Promise(async (resolve) => {
   await db.query(Channel.deleteByID(channelID));
   resolve();
 });
+
+exports.getForGuildID = async guildID => new Promise(async (resolve) => {
+  const channel = await db.query(Channel.getGetForGuildID(guildID));
+  resolve(channel.rows[0]);
+});

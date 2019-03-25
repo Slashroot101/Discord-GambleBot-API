@@ -1,7 +1,6 @@
 const db = require('../database');
 const UserQueries = require('./queries');
 
-
 exports.getByDiscordID = discordID => new Promise(async (resolve) => {
   const user = await db.query(UserQueries.getByDiscordID(discordID));
   resolve(user);
@@ -36,5 +35,10 @@ exports.removeFromBlacklist = userID => new Promise(async (resolve) => {
 
 exports.updateRoleID = (userID, roleID) => new Promise(async (resolve) => {
   const user = await db.query(UserQueries.updateRole(userID, roleID));
+  resolve(user.rows[0]);
+});
+
+exports.getByID = userID => new Promise(async(resolve) => {
+  const user = await db.query(UserQueries.getByID(userID));
   resolve(user.rows[0]);
 });

@@ -15,3 +15,9 @@ exports.deleteByID = channelID => ({
   text: 'DELETE FROM channels WHERE id = $1',
   values: [channelID],
 });
+
+exports.getGetForGuildID = ID => ({
+  name: 'get-guild-by-id',
+  text: 'SELECT *, guilds.id as guildRowId, channels.id as channelID FROM channels JOIN guilds on guilds.id = channels.guild_id WHERE guilds.id = $1',
+  values: [ID],
+});

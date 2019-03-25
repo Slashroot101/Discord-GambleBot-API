@@ -36,3 +36,9 @@ exports.updateRole = (userID, roleID) => ({
   text: 'UPDATE users set role_id = $1 WHERE id = $2 RETURNING *',
   values: [roleID, userID],
 });
+
+exports.getByID = userID => ({
+  name: 'get-user-by-id',
+  text: 'SELECT * from users WHERE id = $1',
+  values: [userID],
+});

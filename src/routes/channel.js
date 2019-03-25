@@ -5,7 +5,6 @@ const { responseHandler, errorHandler } = require('../libs/responseHandler');
 router.post('/', async (req, res, next) => {
   try {
     const existingChannel = await Channel.getChannelForDiscordGuildID(req.body.guildID);
-    console.log(existingChannel)
     if (existingChannel !== undefined) {
       await Channel.deleteByID(existingChannel.channelid);
     }

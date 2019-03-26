@@ -1,6 +1,9 @@
+const localityTypes = require('../../constants');
+
+console.log(localityTypes.lotteryTypes.globalBool);
 exports.create = lottery => ({
   name: 'create-lottery',
-  text: `INSERT INTO lottery(locality_type, guild_id, start_date, end_date, ticket_cost, max_tickets, is_done) VALUES ($1, $2, now(), now() + INTERVAL '1' hour * $3, $4, $5, $6) RETURNING *`,
+  text: 'INSERT INTO lottery(locality_type, guild_id, start_date, end_date, ticket_cost, max_tickets, is_done, created_by) VALUES ($1, $2, now(), now() + INTERVAL \'1\' hour * $3, $4, $5, $6, $7) RETURNING *',
   values: [
     lottery.localityType,
     lottery.guildID,
@@ -8,6 +11,7 @@ exports.create = lottery => ({
     lottery.ticketCost,
     lottery.maxTickets,
     lottery.isDone,
+    lottery.createdBy,
   ],
 });
 
@@ -37,7 +41,7 @@ exports.getLotteryWinner = lotteryID => ({
 
 exports.findPossibleOverlap = (duration, guildID) => ({
   name: 'get-overlap-lottery',
-  text: `SELECT * FROM lottery WHERE end_date <= now() + INTERVAL '1' hour * $1 AND guild_id = $2`,
+  text: 'SELECT * FROM lottery WHERE end_date <= now() + INTERVAL \'1\' hour * $1 AND guild_id = $2',
   values: [duration, guildID],
 });
 
@@ -55,8 +59,8 @@ exports.getLotteryByID = lotteryID => ({
 
 exports.getLotteryForGuildByDiscordGuildID = guildID => ({
   name: 'get-lottery-for-guild',
-  text: 'SELECT *, lottery.id as lotteryid FROM lottery JOIN guilds on guilds.id = lottery.guild_id where guilds.guild_id = $1 and is_done = false',
-  values: [guildID]
+  text: 'SELECT *, lottery.id as lotteryid,now() as current_time   FROM lottery JOIN guilds on guilds.id = lottery.guild_id where guilds.guild_id = $1 and is_done = false',
+  values: [guildID],
 });
 
 exports.setConsumedByQueue = lotteryID => ({
@@ -69,4 +73,10 @@ exports.setWinner = (lotteryID, userID) => ({
   name: 'set-lottery-winner',
   text: 'UPDATE lottery SET winner = $1 WHERE id = $2',
   values: [userID, lotteryID],
+});
+
+exports.getCurrentGlobalLottery = () => ({
+  name: 'get-current-global-lottery',
+  text: 'SELECT *, now() as current_time FROM lottery LEFT JOIN lottery_jackpots ON lottery_jackpots.lottery_id = lottery.id WHERE locality_type = $1 and is_done = false',
+  values: [localityTypes.lotteryTypes.global],
 });

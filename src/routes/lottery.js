@@ -6,6 +6,16 @@ const { responseHandler, errorHandler } = require('../libs/responseHandler');
 const { getForGuildID } = require('../libs/channels/channels');
 const { getByID: getUserByID } = require('../libs/user/users');
 
+router.get('/global', async (req, res, next) => {
+  try {
+    const globalLottery = await Lottery.getCurrentGlobalLottery();
+    responseHandler(res, { lottery: globalLottery });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+  next();
+});
+
 router.put('/queue/status', async (req, res, next) => {
   try {
     const lotteryStatusUpdatePromises = [];
@@ -121,12 +131,12 @@ router.post('/:lotteryID/winner', async (req, res, next) => {
 router.get('/discord-guild/:id', async (req, res, next) => {
   try {
     const guildLottery = await Lottery.getLotteryForGuildByDiscordGuildID(req.params.id);
-    responseHandler(res, { lottery: guildLottery });
+    const jackpot = await Lottery.getLotteryJackpot(guildLottery.lotteryid);
+    responseHandler(res, { lottery: guildLottery, jackpot });
   } catch (err) {
     errorHandler(res, err);
   }
   next();
 });
-
 
 module.exports = router;

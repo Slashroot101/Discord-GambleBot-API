@@ -55,3 +55,8 @@ exports.setWinner = (lotteryID, userID) => new Promise(async (resolve) => {
   const lottery = await db.query(Lottery.setWinner(lotteryID, userID));
   resolve(lottery.rows[0]);
 });
+
+exports.getCurrentGlobalLottery = () => new Promise(async (resolve) => {
+  const globalLottery = await db.query(Lottery.getCurrentGlobalLottery());
+  resolve(globalLottery.rows[0]);
+});

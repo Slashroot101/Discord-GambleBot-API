@@ -43,3 +43,9 @@ exports.getCommandHistoryCountByDuration = (commandID, userID) => ({
               GROUP BY allowedUsages`,
   values: [commandID, userID],
 });
+
+exports.toggleMaintenanceMode = (commandID, maintenance) => ({
+  name: 'toggle-command-maintenance',
+  text: 'UPDATE commands SET maintenance = $2 WHERE id = $1',
+  values: [commandID, maintenance],
+});

@@ -3,7 +3,7 @@ const localityTypes = require('../../constants');
 console.log(localityTypes.lotteryTypes.globalBool);
 exports.create = lottery => ({
   name: 'create-lottery',
-  text: 'INSERT INTO lottery(locality_type, guild_id, start_date, end_date, ticket_cost, max_tickets, is_done, created_by) VALUES ($1, $2, now(), now() + INTERVAL \'1\' hour * $3, $4, $5, $6, $7) RETURNING *',
+  text: 'INSERT INTO lottery(locality_type, guild_id, start_date, end_date, ticket_cost, max_tickets, is_done, created_by) VALUES ($1, $2, now(), now() + (INTERVAL \'1\' hour * $3), $4, $5, $6, $7) RETURNING *',
   values: [
     lottery.localityType,
     lottery.guildID,
@@ -41,7 +41,7 @@ exports.getLotteryWinner = lotteryID => ({
 
 exports.findPossibleOverlap = (duration, guildID) => ({
   name: 'get-overlap-lottery',
-  text: 'SELECT * FROM lottery WHERE end_date <= now() + INTERVAL \'1\' hour * $1 AND guild_id = $2',
+  text: 'SELECT * FROM lottery WHERE end_date <= now() + INTERVAL \'1\' hour * $1 AND guild_id = $2 AND is_done = FALSE AND is_queued = FALSE',
   values: [duration, guildID],
 });
 

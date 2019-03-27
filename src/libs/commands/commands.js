@@ -34,3 +34,8 @@ exports.getCommandHistoryCountByDuration = (commandID, userID) => new Promise(as
     resolve();
   }
 });
+
+exports.toggleMaintenanceMode = (commandID, maintenance) => new Promise(async (resolve) => {
+  const command = await db.query(Commands.toggleMaintenanceMode(commandID, maintenance));
+  resolve(command.rows[0]);
+});

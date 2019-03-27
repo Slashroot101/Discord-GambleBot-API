@@ -47,4 +47,13 @@ router.get('/discord-guild-id/:id/bank', async (req, res, next) => {
   next();
 });
 
+router.get('/global', async (req, res, next) => {
+  try {
+    const globalGuild = await Guild.getGlobalGuild();
+    responseHandler(res, { guild: globalGuild });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+});
+
 module.exports = router;

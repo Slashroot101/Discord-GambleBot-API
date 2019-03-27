@@ -77,6 +77,6 @@ exports.setWinner = (lotteryID, userID) => ({
 
 exports.getCurrentGlobalLottery = () => ({
   name: 'get-current-global-lottery',
-  text: 'SELECT *, now() as current_time FROM lottery LEFT JOIN lottery_jackpots ON lottery_jackpots.lottery_id = lottery.id WHERE locality_type = $1 and is_done = false',
+  text: 'SELECT *, id as lotteryid, now() as current_time FROM lottery LEFT JOIN lottery_jackpots ON lottery_jackpots.lottery_id = lottery.id WHERE locality_type = $1 and is_done = false',
   values: [localityTypes.lotteryTypes.global],
 });

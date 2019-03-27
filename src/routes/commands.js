@@ -4,8 +4,18 @@ const { responseHandler, errorHandler } = require('../libs/responseHandler');
 
 router.get('/name/:commandName', async (req, res, next) => {
   try {
-    const commands = await Commands.getByName(req.params.commandName);
-    responseHandler(res, { commands });
+    const command = await Commands.getByName(req.params.commandName);
+    responseHandler(res, { command });
+  } catch (err) {
+    errorHandler(res, err);
+  }
+  next();
+});
+
+router.put('/command/:id/maintenance', async (req, res, next) => {
+  try {
+    const command = await Commands.toggleMaintenanceMode(req.params.id, req.body.maintenanceMode);
+    responseHandler(res, { command });
   } catch (err) {
     errorHandler(res, err);
   }

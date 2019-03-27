@@ -17,13 +17,24 @@ router.post('/command-history/:executionID/point/:points', async (req, res, next
 router.put('/user-id/:userID', async (req, res, next) => {
   try {
     let guildTaxPoints = 0;
+    let globalTaxPoints = 0;
     if (req.body.points > 0) {
       guildTaxPoints = req.body.points * config.taxes.guild;
-      await Guild.addPointsToGuildBank(req.body.guildID, guildTaxPoints);
+      const globalGuild = await Guild.getGlobalGuild();
+      globalTaxPoints = req.body.points * config.taxes.global;
+      console.log(globalGuild.guild_id)
+      await Promise.all([
+        Guild.addPointsToGuildBank(req.body.guildID, guildTaxPoints),
+        Guild.addPointsToGuildBank(globalGuild.guild_id, globalTaxPoints),
+      ]);
     }
-    await Points.addPointsByUserID(req.params.userID, (req.body.points - guildTaxPoints));
+    await Points.addPointsByUserID(
+      req.params.userID,
+      (req.body.points - guildTaxPoints - globalTaxPoints),
+    );
     responseHandler(res, {});
   } catch (err) {
+    console.log(err)
     errorHandler(res, err);
   }
   next();

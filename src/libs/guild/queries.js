@@ -12,7 +12,7 @@ exports.createGuildBank = guildID => ({
 
 exports.addToPointsToGuildBank = (guildBankID, amount) => ({
   name: 'add-points-to-guild-bank',
-  text: 'UPDATE guild_banks SET points = points + $2 FROM guilds WHERE guilds.guild_id = $1',
+  text: 'UPDATE guild_banks SET points = points + $2 FROM guilds WHERE guilds.guild_id = $1 and guilds.id = guild_banks.guild_id',
   values: [guildBankID, amount],
 });
 
@@ -32,4 +32,10 @@ exports.getByID = id => ({
   name: 'get-guild-by-id',
   text: 'SELECT * FROM guilds WHERE id = $1',
   values: [id],
+});
+
+exports.getGlobalGuild = () => ({
+  name: 'get-global-guild',
+  text: 'SELECT * FROM guilds WHERE global = false',
+  values: [],
 });

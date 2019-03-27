@@ -30,3 +30,8 @@ exports.getByID = async id => new Promise(async (resolve) => {
   const guild = await db.query(Guild.getByID(id));
   resolve(guild.rows[0]);
 });
+
+exports.getGlobalGuild = () => new Promise(async (resolve) => {
+  const globalGuild = await db.query(Guild.getGlobalGuild());
+  resolve(globalGuild.rows[0]);
+});

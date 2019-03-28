@@ -19,7 +19,7 @@ const channels = require('./routes/channel');
 
 server.use(restify.plugins.throttle({
   burst: 100, // Max 10 concurrent requests (if tokens)
-  rate: 2, // Steady state: 2 request / 1 seconds
+  rate: 5000, // Steady state: 2 request / 1 seconds
   ip: true,		// throttle per IP
 }));
 server.use(restify.plugins.bodyParser());

@@ -1,6 +1,6 @@
 exports.create = guildBank => ({
   name: 'create-guild-bank',
-  text: 'INSERT INTO guild_banks(points, guild_id) VALUES ($1, $2)',
+  text: 'INSERT INTO guild_banks(points, guild_id) VALUES ($1, $2) RETURNING *',
   values: [guildBank.points, guildBank.guildID],
 });
 
@@ -10,8 +10,8 @@ exports.update = (guildBank, rowID) => ({
   values: [guildBank.points, guildBank.guildID, rowID],
 });
 
-exports.getByDiscordGuildID = guildID => ({
+exports.getByDiscordGuildID = discordGuildID => ({
   name: 'get-guild-bank-by-guild-id',
   text: 'SELECT * FROM guild_banks WHERE guild_id = $1',
-  values: [guildID],
+  values: [discordGuildID],
 });

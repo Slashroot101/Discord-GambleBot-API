@@ -1,58 +1,74 @@
+const errors = require('restify-errors');
+
 const router = new (require('restify-router')).Router();
 const Guild = require('../libs/guild/guild');
-const { responseHandler, errorHandler } = require('../libs/responseHandler');
+const { responseHandler } = require('../libs/responseHandler');
 
 router.post('/', async (req, res, next) => {
   try {
-    req.body.guilds.forEach(async (element) => {
-      const guild = await Guild.create(element);
-      if (guild) {
-        await Guild.createGuildBank(guild.id);
-      }
-    });
-    responseHandler(res, { guilds: req.body.guilds });
+    if (!req.body.guild
+        || req.body.guild.discordGuildID === undefined
+        || req.body.guild.joinDate === undefined
+        || req.body.guild.isGlobal === undefined) {
+      return next(new errors.BadRequestError({
+        statusCode: 400,
+      }, 'You must pass a guild to create in the body'));
+    }
+
+    const newGuild = await Guild.create(req.body.guild);
+    responseHandler(res, { guild: newGuild });
+    return next();
   } catch (err) {
-    errorHandler(res, err);
+    return next(new errors.InternalServerError());
   }
-  next();
 });
 
-router.put('/id/:guildID/points', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
-    const guildPoints = await Guild.addPointsToGuildBank(req.params.guildID, req.params.points);
-    responseHandler(res, { guildPoints });
+    if (req.params.id === undefined
+      || req.body.guild.discordGuildID === undefined
+      || req.body.guild.joinDate === undefined
+      || req.body.guild.isGlobal === undefined) {
+      return next(new errors.BadRequestError({
+        statusCode: 400,
+      }, 'You must pass a guild to create in the body'));
+    }
+
+    const guild = await Guild.updateByRowID(req.params.id, req.body.guild);
+    responseHandler(res, { guild });
+    return next();
   } catch (err) {
-    errorHandler(res, err);
+    return next(new errors.InternalServerError());
   }
-  next();
 });
 
-router.get('/guild-id/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    const guild = await Guild.getByGuildID(req.params.id);
+    if (req.params.id === undefined) {
+      return next(new errors.BadRequestError({
+        statusCode: 400,
+      }, 'You must pass a valid guild row id'));
+    }
+
+    const guild = await Guild.getByRowID(req.params.id);
     responseHandler(res, { guild });
   } catch (err) {
-    errorHandler(res, err);
+    return next(new errors.InternalServerError());
   }
-  next();
 });
 
-router.get('/discord-guild-id/:id/bank', async (req, res, next) => {
+router.get('/discord-guild-id/:id', async (req, res, next) => {
   try {
-    const guildBank = await Guild.getGuildBankByGuildID(req.params.id);
-    responseHandler(res, { guildBank });
-  } catch (err) {
-    errorHandler(res, err);
-  }
-  next();
-});
+    if (req.params.id === undefined) {
+      return next(new errors.BadRequestError({
+        statusCode: 400,
+      }, 'You must pass a valid discord guild id'));
+    }
 
-router.get('/global', async (req, res, next) => {
-  try {
-    const globalGuild = await Guild.getGlobalGuild();
-    responseHandler(res, { guild: globalGuild });
+    const guild = await Guild.getByDiscordGuildID(req.params.id);
+    responseHandler(res, { guild });
   } catch (err) {
-    errorHandler(res, err);
+    return next(new errors.InternalServerError());
   }
 });
 

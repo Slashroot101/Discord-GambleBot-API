@@ -1,37 +1,27 @@
-const db = require('../database');
-const Guild = require('./queries');
+const GuildQueries = require('./queries');
+const { query } = require('../database');
 
-exports.create = guildID => new Promise(async (resolve) => {
-  const guild = await db.query(Guild.create(guildID));
-  resolve(guild.rows[0]);
-});
+exports.create = async (guild) => {
+  const newGuild = await query(GuildQueries.create(guild));
+  return newGuild.rows[0];
+};
 
-exports.createGuildBank = async guildID => new Promise(async (resolve) => {
-  const guildBank = await db.query(Guild.createGuildBank(guildID));
-  resolve(guildBank.rows[0]);
-});
+exports.getByRowID = async (rowID) => {
+  const guild = await query(GuildQueries.getByRowID(rowID));
+  return guild.rows[0];
+};
 
-exports.addPointsToGuildBank = async (guildID, points) => new Promise(async (resolve) => {
-  const guildBank = await db.query(Guild.addToPointsToGuildBank(guildID, points));
-  resolve(guildBank.rows[0]);
-});
+exports.getByDiscordGuildID = async (discordGuildID) => {
+  const guild = await query(GuildQueries.getByDiscordGuildID(discordGuildID));
+  return guild.rows[0];
+};
 
-exports.getGuildBankByGuildID = async guildID => new Promise(async(resolve) => {
-  const guildBank = await db.query(Guild.getGuildBankByGuildID(guildID));
-  resolve(guildBank.rows[0]);
-});
+exports.updateByRowID = async (guild, rowID) => {
+  const updatedGuild = await query(GuildQueries.updateByRowID(guild, rowID));
+  return updatedGuild.rows[0];
+};
 
-exports.getByGuildID = async guildID => new Promise(async (resolve) => {
-  const guild = await db.query(Guild.getByGuildID(guildID));
-  resolve(guild.rows[0]);
-});
-
-exports.getByID = async id => new Promise(async (resolve) => {
-  const guild = await db.query(Guild.getByID(id));
-  resolve(guild.rows[0]);
-});
-
-exports.getGlobalGuild = () => new Promise(async (resolve) => {
-  const globalGuild = await db.query(Guild.getGlobalGuild());
-  resolve(globalGuild.rows[0]);
-});
+exports.getGlobalGuilds = async () => {
+  const globalGuilds = await query(GuildQueries.getGlobalGuilds());
+  return globalGuilds.rows;
+};

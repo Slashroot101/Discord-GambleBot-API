@@ -28,16 +28,17 @@ server.use(restify.plugins.queryParser());
 server.use(restify.plugins.gzipResponse());
 
 router.add('/api', home);
-router.add('/user', user);
+router.add('/users', user);
 router.add('/points', points);
 router.add('/commands', commands);
-router.add('/guild', guild);
-router.add('/lottery', lottery);
-router.add('/lottery-ticket', lotteryTickets);
-router.add('/channel', channels);
+router.add('/guilds', guild);
+router.add('/lotteries', lottery);
+router.add('/lottery-tickets', lotteryTickets);
+router.add('/channels', channels);
 router.applyRoutes(server);
 
 server.on('after', restify.plugins.metrics({ server }, (err, metrics) => {
+  console.log(err);
   logger.trace(`${metrics.method} ${metrics.path} ${metrics.statusCode} ${metrics.latency} ms`);
 }));
 

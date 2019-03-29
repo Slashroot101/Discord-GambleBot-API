@@ -16,6 +16,7 @@ const guild = require('./routes/guild');
 const lottery = require('./routes/lottery');
 const lotteryTickets = require('./routes/lotteryTickets');
 const channels = require('./routes/channel');
+const guildBank = require('./routes/guildBank');
 
 server.use(restify.plugins.throttle({
   burst: 100, // Max 10 concurrent requests (if tokens)
@@ -35,6 +36,7 @@ router.add('/guilds', guild);
 router.add('/lotteries', lottery);
 router.add('/lottery-tickets', lotteryTickets);
 router.add('/channels', channels);
+router.add('/guild-banks/', guildBank);
 router.applyRoutes(server);
 
 server.on('after', restify.plugins.metrics({ server }, (err, metrics) => {

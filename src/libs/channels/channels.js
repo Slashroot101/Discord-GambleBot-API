@@ -1,22 +1,17 @@
-const db = require('../database');
-const Channel = require('./queries');
+const { query } = require('../database');
+const ChannelQueries = require('./channels')
 
-exports.create = async (discordChannelID, createdBy, guildID) => new Promise(async (resolve) => {
-  const channel = await db.query(Channel.create(discordChannelID, createdBy, guildID));
-  resolve(channel.rows[0]);
-});
+exports.create = async (channel) => {
+  const newChannel = await query(ChannelQueries.create(channel));
+  return newChannel.rows[0];
+};
 
-exports.getChannelForDiscordGuildID = async discordGuildID => new Promise(async (resolve) => {
-  const channel = await db.query(Channel.getGuildForDiscordGuildID(discordGuildID));
-  resolve(channel.rows[0]);
-});
+exports.getByGuildRowID = async (guildRowID) => {
+  const channel = await query(ChannelQueries.getByGuildRowID(guildRowID));
+  return channel.rows[0];
+};
 
-exports.deleteByID = async channelID => new Promise(async (resolve) => {
-  await db.query(Channel.deleteByID(channelID));
-  resolve();
-});
-
-exports.getForGuildID = async guildID => new Promise(async (resolve) => {
-  const channel = await db.query(Channel.getGetForGuildID(guildID));
-  resolve(channel.rows[0]);
-});
+exports.deleteByRowID = async (rowID) => {
+  const deletedChannel = await query(ChannelQueries.deleteByRowID(rowID));
+  return deletedChannel.rows[0];
+};

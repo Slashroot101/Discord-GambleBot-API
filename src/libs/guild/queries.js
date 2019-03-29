@@ -1,6 +1,6 @@
 exports.create = guild => ({
   name: 'create-guild',
-  text: 'INSERT INTO guilds(guild_id, join_date, global) VALUES($1, $2, $3)',
+  text: 'INSERT INTO guilds(guild_id, join_date, global) VALUES($1, $2, $3) RETURNING *',
   values: [guild.discordGuildID, guild.joinDate, guild.isGlobal],
 });
 
@@ -18,6 +18,12 @@ exports.getByDiscordGuildID = discordGuildID => ({
 
 exports.updateByRowID = (guild, rowID) => ({
   name: 'update-by-row-id',
-  text: 'UPDATE guilds set guild_id = $1, join_date = $2, global = $3 WHERE id = $4',
+  text: 'UPDATE guilds set guild_id = $1, join_date = $2, global = $3 WHERE id = $4 RETURNING *',
   values: [guild.guildID, guild.joinDate, guild.isGlobal, rowID],
+});
+
+exports.getGlobalGuilds = () => ({
+  name: 'get-global-guilds',
+  text: 'SELECT * FROM guilds WHERE global = $1',
+  values: [true],
 });

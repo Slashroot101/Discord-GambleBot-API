@@ -13,7 +13,6 @@
 	"dependencies": {
 		"boom": "^7.3.0",
 		"fastify": "^2.1.0",
-		"fastify-mongoose": "^0.2.1",
 		"fastify-swagger": "^2.3.2",
 		"mongoose": "^5.4.20"
 	},

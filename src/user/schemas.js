@@ -12,7 +12,7 @@ exports.createUser = {
   exposeRoute: true,
   response: {
     200: {
-      description: 'Successful response',
+      description: 'Successful created a new user',
       type: 'object',
       properties: {
         _id: { type: 'string' },
@@ -20,6 +20,34 @@ exports.createUser = {
         createdOn: { type: 'string' },
         role: { type: 'number' },
         __v: { type: 'number' },
+      }
+    }
+  }
+};
+
+exports.getUserWithFilter = {
+  description: 'Gets a user with a filter in query',
+  tags: ['User'],
+  summary: 'Returns a user with the given filter',
+  exposeRoute: true,
+  response: {
+    200: {
+      description: 'Successfully got users',
+      type: 'object',
+      properties: {
+        users: {
+          type: 'array',
+          items: [{
+            properties : {
+              _id: { type: 'string' },
+              discordUserID: { type: 'string' },
+              createdOn: { type: 'string' },
+              role: { type: 'number' },
+              __v: { type: 'number' },
+            },
+          }]
+        }
+
       }
     }
   }

@@ -3,13 +3,41 @@ const fastify = require('fastify')({
 });
 const swagger = require('./config/swagger');
 const config = require('../config');
+const mongoose = require('mongoose');
+
+mongoose.connection.on('connected', () => {
+  console.log('Connection Established')
+});
+
+mongoose.connection.on('reconnected', () => {
+  console.log('Connection Reestablished')
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('Connection Disconnected')
+});
+
+mongoose.connection.on('close', () => {
+  console.log('Connection Closed')
+});
+
+mongoose.connection.on('error', (error) => {
+  console.log('ERROR: ' + error)
+});
+
 
 const start = async () => {
   try {
-    fastify.register(require('fastify-mongoose'), {
-      uri: config.db.host
-    }, err => {
-      if (err) throw err
+    mongoose.Promise = Promise;
+    await mongoose.connect(config.db.host, {
+      auth: {
+        user: config.db.username,
+        password: config.db.password,
+        authdb: config.db.authdb,
+      },
+      autoReconnect: true,
+      reconnectTries: 1000000,
+      reconnectInterval: 3000
     });
     fastify.register(require('fastify-swagger'), swagger.options);
     fastify.register(require('./user'), {prefix: '/api/users'});

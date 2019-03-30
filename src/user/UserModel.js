@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+mongoose.set('debug', true)
 const userSchema = new mongoose.Schema({
   discordUserID: String,
   createdOn: Date,

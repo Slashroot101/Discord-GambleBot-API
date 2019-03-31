@@ -4,14 +4,29 @@ const mongoose = require('mongoose');
 
 exports.createUser = async (req, resp) => {
   try {
-
-    console.log(mongoose.connection.readyState);
     req.body.createdOn = new Date();
     const user = await new User(req.body);
-    console.log(user);
-    return user.save();
+    return user.save().exec();
   } catch (err) {
-    console.log(err)
+    throw boomify(err);
+  }
+};
+
+exports.deleteUser = async (req, reply) => {
+  try {
+    const user =  await User.findByIdAndDelete(req.params.id).exec();
+    console.log(user)
+    if(user !== null){
+      return {user}
+    } else {
+     return reply
+              .code(404)
+              .send({
+                message: 'User could not be found.',
+                code: 404,
+              });
+    }
+  } catch (err) {
     throw boomify(err);
   }
 };
@@ -19,6 +34,10 @@ exports.createUser = async (req, resp) => {
 exports.getUserWithFilter = async (req, reply) => {
   try {
     let query = {};
+
+    if(req.query._id){
+      query._id = req.query._id;
+    }
 
     if(req.query.discordUserID){
       query.discordUserID = req.query.discordUserID;
@@ -32,7 +51,6 @@ exports.getUserWithFilter = async (req, reply) => {
       query.createdOn = req.query.createdOn;
     }
     const user = await User.find(query).exec();
-    console.log(user)
     return {users: user};
   } catch (err){
     throw boomify(err);

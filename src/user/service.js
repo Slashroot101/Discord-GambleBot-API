@@ -1,12 +1,16 @@
 const { boomify } = require('boom');
 const User = require('./UserModel');
-const mongoose = require('mongoose');
 
 exports.createUser = async (req, resp) => {
   try {
     req.body.createdOn = new Date();
+    req.body.points = {
+      currentPoints: 0,
+      totalAccruedPoints: 0,
+    };
+    req.body.commandHistory = [];
     const user = await new User(req.body);
-    return user.save().exec();
+    return user.save();
   } catch (err) {
     throw boomify(err);
   }
@@ -15,7 +19,6 @@ exports.createUser = async (req, resp) => {
 exports.deleteUser = async (req, reply) => {
   try {
     const user =  await User.findByIdAndDelete(req.params.id).exec();
-    console.log(user)
     if(user !== null){
       return {user}
     } else {

@@ -39,6 +39,7 @@ const start = async () => {
       reconnectTries: 1000000,
       reconnectInterval: 3000
     });
+    mongoose.set('debug', true);
     fastify.register(require('fastify-swagger'), swagger.options);
     fastify.register(require('./user'), {prefix: '/api/users'});
     await fastify.listen(3000);

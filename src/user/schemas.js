@@ -3,6 +3,21 @@ const userObject = {
   discordUserID: { type: 'string' },
   createdOn: { type: 'string' },
   role: { type: 'number' },
+  points: {
+    type: 'object',
+    properties: {
+      currentPoints: { type: 'number' },
+      totalAccruedPoints: { type: 'number' },
+    },
+    commandHistory: {
+      type: 'array',
+      items: {
+        commandID: { type: 'string' },
+        netPoints: { type: 'number' },
+        executedOn: { type: 'string' },
+      },
+    },
+  },
   __v: { type: 'number' },
 };
 

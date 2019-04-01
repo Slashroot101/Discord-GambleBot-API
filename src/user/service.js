@@ -8,6 +8,7 @@ exports.createUser = async (req, resp) => {
       currentPoints: 0,
       totalAccruedPoints: 0,
     };
+    req.body.commandExecutionMetaData = [];
     req.body.commandHistory = [];
     const user = await new User(req.body);
     return user.save();

@@ -9,14 +9,6 @@ const userObject = {
       currentPoints: { type: 'number' },
       totalAccruedPoints: { type: 'number' },
     },
-    commandHistory: {
-      type: 'array',
-      items: {
-        commandID: { type: 'string' },
-        netPoints: { type: 'number' },
-        executedOn: { type: 'string' },
-      },
-    },
   },
   __v: { type: 'number' },
 };
@@ -35,7 +27,7 @@ exports.createUser = {
   exposeRoute: true,
   response: {
     200: {
-      description: 'Successful created a new user',
+      description: 'Successfully created a new user',
       type: 'object',
       properties: userObject,
     }
@@ -89,6 +81,31 @@ exports.getUserWithFilter = {
           type: 'array',
           items: {
             properties : userObject,
+          }
+        }
+      }
+    }
+  }
+};
+
+exports.getUserLeaderboard = {
+  description: 'Gets users by points ascending/descending',
+  tags: ['User'],
+  summary: 'Gets users by points',
+  querystring: {
+    limit: { type: 'number', minimum: 1 },
+    sortOrder: { type: 'number', minimum: -1, maximum: 1 },
+  },
+  exposeRoute: true,
+  response: {
+    200: {
+      description: 'Successfully got users',
+      type: 'object',
+      properties: {
+        users: {
+          type: 'array',
+          items: {
+            properties: userObject,
           }
         }
       }

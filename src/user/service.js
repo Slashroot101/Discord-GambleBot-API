@@ -34,6 +34,19 @@ exports.deleteUser = async (req, reply) => {
   }
 };
 
+exports.getUserLeaderboard = async (req, reply) => {
+  try {
+    const users = await User
+          .find()
+          .sort({"points.currentPoints" : req.query.sortOrder})
+          .limit(req.query.limit)
+          .exec();
+    return {users};
+  } catch (err) {
+    throw boomify(err);
+  }
+};
+
 exports.getUserWithFilter = async (req, reply) => {
   try {
     let query = {};

@@ -9,3 +9,8 @@ exports.createCommand = async (req, resp) => {
     throw boomify(err);
   }
 };
+
+exports.getCommand = async(req, resp) => {
+  const query = {};
+  
+};

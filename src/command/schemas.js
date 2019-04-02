@@ -66,3 +66,16 @@ exports.createCommand = {
   }
 };
 
+exports.getCommandWithFilter = {
+  description: 'Get commands with a filter',
+  tags: ['Command'],
+  summary: 'Gets commands with the given filter',
+  exposeRoute: true,
+  response: {
+    200: {
+      description: 'Successfully got commands',
+      type: 'object',
+      properties: commandObject,
+    }
+  }
+}

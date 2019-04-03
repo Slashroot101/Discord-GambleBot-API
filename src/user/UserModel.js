@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     totalAccruedPoints: Number,
   },
   commandExecutionMetaData: [{
-    commandID: {    type: mongoose.Schema.Types.ObjectId, ref: 'Command'},
+    commandID: { type: mongoose.Schema.Types.ObjectId, ref: 'Command' },
     netPoints: Number,
     numExecutions: Number,
   }],

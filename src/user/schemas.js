@@ -71,6 +71,30 @@ exports.getUserWithFilter = {
   description: 'Gets a user with a filter in query',
   tags: ['User'],
   summary: 'Returns a user with the given filter',
+  querystring: {
+    type: 'object',
+    properties: {
+      ids: {
+        type: 'array',
+        description: 'Array of user id to filter by',
+        items: {
+          type: 'string',
+        }
+      },
+      discordUserID: {
+        description: 'Discord user ID to filter by',
+        type: 'string'
+      },
+      role: {
+        description: 'Role ID to filter by',
+        type: 'string'
+      },
+      createdOn: {
+        description: 'Created on date to filter by',
+        type: 'string'
+      },
+    },
+  },
   exposeRoute: true,
   response: {
     200: {

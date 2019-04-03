@@ -52,8 +52,8 @@ exports.getUserWithFilter = async (req, reply) => {
   try {
     let query = {};
 
-    if(req.query._id){
-      query._id = req.query._id;
+    if(req.query.ids){
+      query._id = { $in: req.query.ids};
     }
 
     if(req.query.discordUserID){

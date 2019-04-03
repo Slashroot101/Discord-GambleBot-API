@@ -17,13 +17,45 @@ exports.getCommandWithFilter = async(req, resp) => {
       query.name = req.query.name;
     }
 
-    if(req.query.id) {
-      query._id = req.query.id
+    if(req.query.ids){
+      query._id = { $in: req.query.ids};
     }
 
     const command = await Command.find(query).exec();
     return {command};
   } catch (err){
+    throw boomify(err);
+  }
+};
+
+exports.updateCommand = async(req, resp) => {
+  try {
+    const command = await Command
+      .findOneAndUpdate(
+        { _id: req.body._id },
+        { $set: req.body },
+        { new:true }
+        );
+    return command.exec();
+  } catch (e) {
+    throw boomify(e);
+  }
+};
+
+exports.deleteCommand = async (req, reply) => {
+  try {
+    const command =  await Command.findByIdAndDelete(req.params.id).exec();
+    if(command !== null){
+      return {command}
+    } else {
+      return reply
+        .code(404)
+        .send({
+          message: 'User could not be found.',
+          code: 404,
+        });
+    }
+  } catch (err) {
     throw boomify(err);
   }
 };

@@ -1,12 +1,30 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  discordUserID: String,
-  createdOn: Date,
-  role: Number,
+  discordUserID: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  createdOn: {
+    type: Date,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+  },
   points: {
-    currentPoints: Number,
-    totalAccruedPoints: Number,
+    currentPoints: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    totalAccruedPoints: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
   },
   commandExecutionMetaData: [{
     commandID: { type: mongoose.Schema.Types.ObjectId, ref: 'Command' },

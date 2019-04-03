@@ -2,7 +2,7 @@ const userObject = {
   _id: { type: 'string' },
   discordUserID: { type: 'string' },
   createdOn: { type: 'string' },
-  role: { type: 'number' },
+  role: { type: 'string' },
   points: {
     type: 'object',
     properties: {
@@ -21,7 +21,7 @@ exports.createUser = {
     type: 'object',
     properties: {
       discordUserID: { type: 'string' },
-      role: { type: 'number' },
+      role: { type: 'string' },
     }
   },
   exposeRoute: true,

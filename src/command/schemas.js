@@ -18,12 +18,14 @@ const commandObject = {
   cooldown: {
     type: 'object',
     properties: {
+      hasCooldown: { type: 'boolean' },
       executionPerMinute: { type: 'number' },
       cooldownInMinutes: { type: 'number' },
     }
   },
   __v: { type:  'number' },
 };
+
 
 exports.createCommand = {
   description: 'Create a command',
@@ -50,6 +52,7 @@ exports.createCommand = {
       cooldown: {
         type: 'object',
         properties: {
+          hasCooldown: { type: 'number' },
           executionPerMinute: { type: 'number' },
           cooldownInMinutes: { type: 'number' },
         }
@@ -130,6 +133,7 @@ exports.updateCommand = {
       cooldown: {
         type: 'object',
         properties: {
+          hasCooldown: { type: 'boolean' },
           executionPerMinute: { type: 'number' },
           cooldownInMinutes: { type: 'number' },
         }

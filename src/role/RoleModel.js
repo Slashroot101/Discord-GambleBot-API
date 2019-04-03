@@ -6,7 +6,7 @@ const roleSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  hasEval: {
+  isSuperUser: {
     type: Boolean,
     required: true,
     default: false,

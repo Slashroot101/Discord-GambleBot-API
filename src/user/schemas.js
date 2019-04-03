@@ -10,6 +10,17 @@ const userObject = {
       totalAccruedPoints: { type: 'number' },
     },
   },
+  commandExecutionMetaData: {
+    type: 'array',
+    items: {
+      type:  'object',
+      properties: {
+        commandID: { type: 'string' },
+        netPoints: { type: 'number' },
+        numExecutions: { type: 'number'},
+      }
+    }
+  },
   __v: { type: 'number' },
 };
 
@@ -29,7 +40,12 @@ exports.createUser = {
     200: {
       description: 'Successfully created a new user',
       type: 'object',
-      properties: userObject,
+      properties: {
+        user: {
+          type: 'object',
+          properties: userObject,
+        }
+      },
     }
   }
 };
@@ -93,6 +109,10 @@ exports.getUserWithFilter = {
         description: 'Created on date to filter by',
         type: 'string'
       },
+      limit: {
+        description: 'The number of rows to retrieve',
+        type: 'number',
+      },
     },
   },
   exposeRoute: true,
@@ -117,8 +137,10 @@ exports.getUserLeaderboard = {
   tags: ['User'],
   summary: 'Gets users by points',
   querystring: {
-    limit: { type: 'number', minimum: 1 },
-    sortOrder: { type: 'number', minimum: -1, maximum: 1 },
+    numPages: { type: 'number', minimum: 1, description: 'Number of pages to return'},
+    sortOrder: { type: 'number', minimum: -1, maximum: 1, description: 'Order to sort the leaderboard by', },
+    pageSize: { type: 'number', description: 'Page size to return by', },
+    pageStart: { type: 'number', description: 'Row number for paging to start at'}
   },
   exposeRoute: true,
   response: {

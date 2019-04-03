@@ -10,8 +10,8 @@ exports.createUser = async (req, resp) => {
     };
     req.body.commandExecutionMetaData = [];
     req.body.commandHistory = [];
-    const user = await new User(req.body);
-    return user.save();
+    const user = await new User(req.body).save();
+    return {user};
   } catch (err) {
     throw boomify(err);
   }
@@ -40,7 +40,8 @@ exports.getUserLeaderboard = async (req, reply) => {
     const users = await User
           .find()
           .sort({"points.currentPoints" : req.query.sortOrder})
-          .limit(req.query.limit)
+          .skip(req.query.pageStart)
+          .limit(req.query.pageSize * req.query.numPages)
           .exec();
     return {users};
   } catch (err) {
@@ -51,9 +52,8 @@ exports.getUserLeaderboard = async (req, reply) => {
 exports.getUserWithFilter = async (req, reply) => {
   try {
     let query = {};
-
-    if(req.query.ids){
-      query._id = { $in: req.query.ids};
+    if(req.query['ids[]']){
+      query._id = { $in: req.query['ids[]']};
     }
 
     if(req.query.discordUserID){
@@ -67,7 +67,8 @@ exports.getUserWithFilter = async (req, reply) => {
     if(req.query.createdOn){
       query.createdOn = req.query.createdOn;
     }
-    const user = await User.find(query).exec();
+
+    const user = await User.find(query).limit(Number(req.query.limit)).exec();
     return {users: user};
   } catch (err){
     throw boomify(err);

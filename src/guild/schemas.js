@@ -178,6 +178,16 @@ exports.updateGuild = {
       id: { type: 'string' },
     },
   },
+  body: {
+    type: 'object',
+    required: ['points'],
+    properties: {
+      points: { type: 'number'},
+      onlyAllowCommunicationsHere: { type: 'boolean'},
+      discordChannelID: { type: 'string' },
+      disabledCommands: { type: 'string' },
+    }
+  },
   response: {
     200: {
       description: 'Successfully updated the guild',

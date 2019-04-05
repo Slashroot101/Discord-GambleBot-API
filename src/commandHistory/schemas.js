@@ -53,6 +53,11 @@ exports.getWithFilter = {
       endTime: {
         type: 'string',
         description: 'The end time to start to filter documents out greater than as an ISO string',
+      },
+      sort: {
+        type: 'number',
+        minimum: -1,
+        maximum: 1,
       }
     },
   },

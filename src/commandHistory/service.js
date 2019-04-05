@@ -30,7 +30,9 @@ exports.getCommandHistoryWithFilter =  async (req, reply) => {
       query.executionTime['$lte'] = new Date(req.query.endTime);
     }
 
-    let commandHistory = await CommandHistory.find(query).limit(req.query.limit).exec();
+    const sort = {executionTime: req.query.sort} || 0;
+
+    let commandHistory = await CommandHistory.find(query).limit(req.query.limit).sort(sort).exec();
     return {commandHistory};
   } catch (err) {
     throw boomify(err);

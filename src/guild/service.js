@@ -48,7 +48,7 @@ exports.getGuildLeaderboard = async(req, reply) => {
 };
 
 exports.updateGuild = async (req, reply) => {
-  if(Object.keys(req.body) === 0){
+  if(Object.keys(req.body).length === 0){
     return {guild: {}};
   }
   const query = {};

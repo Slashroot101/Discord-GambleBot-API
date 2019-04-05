@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const guildModel = new mongoose.Schema({
-  discordID: {
+  discordGuildID: {
     type: String,
     unique: true,
     required: true,
@@ -21,6 +21,23 @@ const guildModel = new mongoose.Schema({
   createdOn: {
     type: Number,
     required: true,
+  },
+  communicationChannel: {
+    onlyAllowCommunicationsHere: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    discordChannelID: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    isChannelSet: {
+      type: Boolean,
+      required: true,
+      default: false,
+    }
   },
   disabledCommands: [{
     type: mongoose.Schema.Types.ObjectId,

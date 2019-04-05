@@ -55,8 +55,11 @@ exports.updateGuild = async (req, reply) => {
   if(req.body.points) {
     query['$inc'] = {
       "bank.currentBalance" : req.body.points,
-      "bank.totalPointsGained" : req.body.points,
     };
+
+    if(req.body.points > 0){
+      query['$inc']['bank.totalPointsGained'] = req.body.points;
+    }
   }
 
   if('onlyAllowCommunicationsHere' in req.body) {

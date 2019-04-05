@@ -4,6 +4,7 @@ const schema = require('./schemas');
 module.exports = (fastify, options, next) => {
 
   fastify.post('/', {schema: schema.createRole}, userService.createRole);
+  fastify.get('/', {schema: schema.getRoleWithFilter}, userService.getRoleWithFilter);
 
   fastify.setErrorHandler(function (error, request, reply) {
     reply.send(error)

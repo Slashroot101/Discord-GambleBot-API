@@ -6,6 +6,11 @@ const guildModel = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  isGlobal: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   bank: {
     currentBalance: {
       type: Number,
@@ -32,11 +37,6 @@ const guildModel = new mongoose.Schema({
       type: String,
       required: true,
       default: '',
-    },
-    isChannelSet: {
-      type: Boolean,
-      required: true,
-      default: false,
     }
   },
   disabledCommands: [{

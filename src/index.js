@@ -45,6 +45,7 @@ const start = async () => {
     fastify.register(require('./command'), {prefix: '/api/commands'});
     fastify.register(require('./role'), {prefix: '/api/roles'});
     fastify.register(require('./commandHistory'), {prefix: '/api/command-history'});
+    fastify.register(require('./guild'), {prefix: '/api/guilds'});
     await fastify.listen(3000);
     fastify.swagger();
     fastify.log.info(`Server is listening on ${fastify.server.address().port}`);

@@ -24,6 +24,31 @@ const userObject = {
   __v: { type: 'number' },
 };
 
+exports.addPointsToUser = {
+  description: 'Updates a user\'s points',
+  tags: ['User'],
+  summary: 'Updates user\'s points',
+  body: {
+    type: 'object',
+    properties: {
+      points: { type: 'number', description: 'The number of points to add to the user' },
+    }
+  },
+  exposeRoute: true,
+  response: {
+    200: {
+      description: 'Successfully added points to user',
+      type: 'object',
+      properties: {
+        user: {
+          type: 'object',
+          properties: userObject,
+        }
+      },
+    }
+  }
+};
+
 exports.createUser = {
   description: 'Create a new discord user',
   tags: ['User'],

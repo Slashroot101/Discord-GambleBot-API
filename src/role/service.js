@@ -13,9 +13,9 @@ exports.createRole = async (req, resp) => {
 exports.updateRole = async (req, resp) => {
   try {
     const role = await Role
-        .findOneAndUpdate(
-            { _id: req.params._id },
-            { $set: req.body },
+        .findByIdAndUpdate(
+            req.params._id,
+            req.body,
             { new:true }
         ).exec();
     return {role};

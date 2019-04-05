@@ -32,8 +32,8 @@ exports.updateCommand = async(req, resp) => {
   try {
     const command = await Command
       .findOneAndUpdate(
-        { _id: req.body._id },
-        { $set: req.body },
+          req.body._id,
+        req.body,
         { new:true }
         ).exec();
     return {command};

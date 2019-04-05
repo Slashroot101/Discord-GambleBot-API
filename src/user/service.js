@@ -74,3 +74,46 @@ exports.getUserWithFilter = async (req, reply) => {
     throw boomify(err);
   }
 };
+
+exports.addPointsToUser = async (req, reply) => {
+  try {
+    const hadToAddCommand = await User.findOneAndUpdate(
+        {
+          _id: req.params.userID,
+          "commandExecutionMetaData.commandID": {$ne: req.params.commandID}
+        },
+        {
+          $push: {
+            commandExecutionMetaData: {
+              commandID: req.params.commandID,
+              netPoints: req.body.points,
+              numExecutions: 1,
+            }
+          }
+        },
+        {new: true}
+    );
+    let user;
+    if(!hadToAddCommand){
+      const query = {
+        $inc: {
+          "points.currentPoints": req.body.points,
+          "points.totalAccruedPoints": req.body.points > 0 ? req.body.points: 0,
+          "commandExecutionMetaData.$.netPoints": req.body.points,
+          "commandExecutionMetaData.$.numExecutions": 1,
+        },
+      };
+       user = await User.findOneAndUpdate(
+          {_id: req.params.userID,
+            "commandExecutionMetaData.commandID": req.params.commandID},
+          query,
+          {new: true, upsert: true},
+      );
+    }
+
+     return {user: user || hadToAddCommand};
+  } catch (err) {
+    console.log(err)
+    throw boomify(err);
+  }
+};

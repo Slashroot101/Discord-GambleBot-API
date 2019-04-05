@@ -22,7 +22,17 @@ exports.updateRole = {
   summary: 'Updates the role with the given values',
   body: {
     type: 'object',
-    properties: roleObject,
+    properties: {
+      name: {
+        type: 'string',
+      },
+      isSuperUser: {
+        type: 'boolean',
+      },
+      hasAdmin: {
+        type: 'boolean',
+      },
+    },
   },
   exposeRoute: true,
   response: {

@@ -48,11 +48,11 @@ exports.getWithFilter = {
       },
       startTime: {
         type: 'string',
-        description: 'The start date to start find documents greater than',
+        description: 'The start date to start find documents greater than as an ISO string',
       },
       endTime: {
         type: 'string',
-        description: 'The end time to start to filter documents out greater than',
+        description: 'The end time to start to filter documents out greater than as an ISO string',
       }
     },
   },

@@ -94,7 +94,7 @@ exports.createGuild = {
       description: 'Successfully created guild',
       type: 'object',
       properties: {
-        commandHistory: {
+        guild: {
           type: 'object',
           properties: guildObject,
         }
@@ -150,7 +150,7 @@ exports.deleteGuild = {
       description: 'Successfully deleted the guild',
       type: 'object',
       properties: {
-        user: {
+        guild: {
           type: 'object',
           properties: guildObject,
         }

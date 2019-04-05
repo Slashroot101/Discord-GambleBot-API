@@ -63,13 +63,13 @@ exports.updateGuild = async (req, reply) => {
     query["communicationChannel.onlyAllowCommunicationsHere"] = req.body.onlyAllowCommunicationsHere;
   }
 
-  if(req.query.discordChannelID){
+  if(req.body.discordChannelID){
     query["communicationChannel.discordChannelID"] = req.body.discordChannelID;
   }
 
-  if(req.query.disabledCommands){
+  if(req.body.disabledCommands){
     query["$addToSet"] = {
-      disabledCommands: req.query.disabledCommands,
+      disabledCommands: req.body.disabledCommands,
     }
   }
 
@@ -81,7 +81,8 @@ exports.updateGuild = async (req, reply) => {
         query,
         {new: true},
     ).exec();
-    return {guild};
+    const returnValue = guild !== null ? guild : {};
+    return {guild: returnValue};
   } catch (err) {
     throw boomify(err);
   }

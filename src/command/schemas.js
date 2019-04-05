@@ -39,7 +39,7 @@ exports.createCommand = {
       costData: {
         type:'object',
         properties: {
-          cost: { type: 'string' },
+          cost: { type: 'number' },
           hasCost: { type: 'boolean'}
         }
       },
@@ -62,7 +62,7 @@ exports.createCommand = {
   exposeRoute: true,
   response: {
     200: {
-      description: 'Successfully created a new user',
+      description: 'Successfully created a new command',
       type: 'object',
       properties: {
         command: {
@@ -89,6 +89,10 @@ exports.getCommandWithFilter = {
         type: 'string',
         description: 'Command IDS to filter by',
       },
+      limit: {
+        type: 'number',
+        description: 'The number of documents to retrieve',
+      }
     },
   },
   exposeRoute: true,
@@ -149,7 +153,7 @@ exports.updateCommand = {
   exposeRoute: true,
   response: {
     200: {
-      description: 'Successfully updated a user',
+      description: 'Successfully updated a command',
       type: 'object',
       properties: {
         command: {
@@ -161,7 +165,7 @@ exports.updateCommand = {
   }
 };
 
-exports.deleteUser = {
+exports.deleteCommand = {
   description: 'Deletes a command by ID.',
   tags: ['Command'],
   summary: 'Deletes a command by ID.',

@@ -3,7 +3,7 @@ const Command = require('./CommandModel');
 
 exports.createCommand = async (req, resp) => {
   try {
-    const command = new Command(req.body).save();
+    const command = await new Command(req.body).save();
     return {command: command};
   } catch (err) {
     throw boomify(err);
@@ -21,8 +21,8 @@ exports.getCommandWithFilter = async(req, resp) => {
       query._id = { $in: req.query['ids[]']};
     }
 
-    const command = await Command.find(query).exec();
-    return {command};
+    const command = await Command.find(query).limit(req.query.limit).exec();
+    return {commands: command};
   } catch (err){
     throw boomify(err);
   }
@@ -35,8 +35,8 @@ exports.updateCommand = async(req, resp) => {
         { _id: req.body._id },
         { $set: req.body },
         { new:true }
-        );
-    return {command: command.exec()};
+        ).exec();
+    return {command};
   } catch (e) {
     throw boomify(e);
   }

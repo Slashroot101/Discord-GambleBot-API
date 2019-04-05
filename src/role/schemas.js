@@ -16,6 +16,31 @@ const roleObject = {
   }
 };
 
+exports.updateRole = {
+  description: 'Updates a role',
+  tags: ['Role'],
+  summary: 'Updates the role with the given values',
+  body: {
+    type: 'object',
+    properties: roleObject,
+  },
+  exposeRoute: true,
+  response: {
+    200: {
+      description: 'Successfully updated the role',
+      type: 'object',
+      properties: {
+        role: {
+          type: 'object',
+          properties: roleObject
+        }
+      },
+    }
+  }
+};
+
+
+
 exports.createRole = {
   description: 'Create a role',
   tags: ['Role'],

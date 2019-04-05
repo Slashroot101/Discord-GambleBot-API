@@ -10,7 +10,21 @@ exports.createRole = async (req, resp) => {
   }
 };
 
-exports.getRoleWithFilter = async(req, resp) => {
+exports.updateRole = async (req, resp) => {
+  try {
+    const role = await Role
+        .findOneAndUpdate(
+            { _id: req.params._id },
+            { $set: req.body },
+            { new:true }
+        ).exec();
+    return {role};
+  } catch (err) {
+    throw boomify(err);
+  }
+};
+
+exports.getRoleWithFilter = async (req, resp) => {
   try {
     const query = {};
 
@@ -30,7 +44,7 @@ exports.getRoleWithFilter = async(req, resp) => {
       query.isSuperUser = req.query.isSuperUser;
     }
 
-    const roles = await Role.find(query).limit(req.query.limit).exec();
+    const roles = await Role.find(query).limit(Number(req.query.limit)).exec();
     return {roles};
   } catch (err) {
     throw boomify(err);

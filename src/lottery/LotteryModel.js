@@ -29,6 +29,11 @@ const LotterySchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  currentJackpot: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
   isQueued: {
     type: Boolean,
     required: true,

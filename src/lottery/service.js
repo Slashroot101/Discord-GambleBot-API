@@ -44,5 +44,32 @@ exports.update = async (req, reply) => {
 };
 
 exports.getWithFilter = async (req, reply) => {
+  try {
+    const query = {};
+    if(req.query.guildID) {
+      query.guildID = req.query.guildID;
+    }
 
+    if(req.query.startDate){
+      query.startDate = req.query.startDate;
+    }
+
+    if(req.query.endDate){
+      query.endDate = req.query.endDate;
+    }
+
+    if('isQueued' in req.query){
+      query.isQueued = req.query.isQueued;
+    }
+
+    if('isDone' in req.query){
+      query.isDone = req.query.isDone;
+    }
+
+    if(req.query.winner){
+      query.winner = req.query.winner;
+    }
+  } catch (err) {
+    throw boomify(err);
+  }
 };

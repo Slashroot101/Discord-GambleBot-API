@@ -10,7 +10,7 @@ exports.createLottery = async (req, reply) => {
   }
 };
 
-exports.update = async (req, reply) => {
+exports.updateLottery = async (req, reply) => {
   try {
     const query = {};
 
@@ -35,6 +35,15 @@ exports.update = async (req, reply) => {
       query,
       {new: true},
     ).exec();
+
+    if(req.body.tickets && lottery){
+      await Lottery.findOneAndUpdate(
+        {_id: req.params.id},
+        { $inc: {
+          currentJackpot: lottery.ticketCost * req.body.tickets.length
+          }}
+      )
+    }
 
     return {lottery};
 

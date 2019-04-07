@@ -149,3 +149,28 @@ exports.getWithFilter = {
     }
   }
 };
+
+exports.pickAndSetWinner = {
+  description: 'Picks and sets a winner for the given lottery',
+  tags: ['Lottery'],
+  summary: 'Picks and sets a winner randomly for the given lottery',
+  params: {
+    type: 'object',
+    properties: {
+      id: { type: 'string' }
+    }
+  },
+  exposeRoute: true,
+  response: {
+    200: {
+      description: 'Successfully picked a lottery winner',
+      type: 'object',
+      properties: {
+        lottery: {
+          type: 'object',
+          properties: lotteryInstanceObject,
+        }
+      },
+    }
+  }
+};

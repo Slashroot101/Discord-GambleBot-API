@@ -60,11 +60,11 @@ exports.getWithFilter = async (req, reply) => {
     }
 
     if(req.query.startDate){
-      query.startDate = req.query.startDate;
+      query.startDate['$gte'] = req.query.startDate;
     }
 
     if(req.query.endDate){
-      query.endDate = req.query.endDate;
+      query.endDate['$lte'] = req.query.endDate;
     }
 
     if('isQueued' in req.query){
@@ -81,6 +81,21 @@ exports.getWithFilter = async (req, reply) => {
     console.log(query);
     const lottery = await Lottery.find(query).limit(req.query.limit).exec();
     return {lotteries: lottery};
+  } catch (err) {
+    throw boomify(err);
+  }
+};
+
+exports.pickAndSetWinner = async (req, reply) => {
+  try {
+    const lottery = await Lottery.findById(req.params.id);
+    const winningTicketNum = Math.floor(Math.random() * Math.floor(lottery.tickets.length));
+    const winningTicket = lottery.tickets[winningTicketNum];
+    const updatedLottery = await Lottery.findOneAndUpdate(
+      {_id: lottery._id},
+      {winner: winningTicket.userID}
+    );
+    return {lottery: updatedLottery};
   } catch (err) {
     throw boomify(err);
   }

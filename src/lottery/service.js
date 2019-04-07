@@ -78,6 +78,9 @@ exports.getWithFilter = async (req, reply) => {
     if(req.query.winner){
       query.winner = req.query.winner;
     }
+    console.log(query);
+    const lottery = await Lottery.find(query).limit(req.query.limit).exec();
+    return {lotteries: lottery};
   } catch (err) {
     throw boomify(err);
   }

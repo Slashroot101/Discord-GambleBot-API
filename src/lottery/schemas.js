@@ -115,3 +115,37 @@ exports.updateLottery = {
     }
   }
 };
+
+exports.getWithFilter = {
+  description: 'Gets lotteries with a filter',
+  tags: ['Lottery'],
+  summary: 'Gets lotteries with the given filter',
+  querystring: {
+    type: 'object',
+    properties: {
+      guildID: { type: 'string', description: 'The guild ID that the lottery is active for' },
+      startDate: { type: 'string', description: 'The start date to query lotteries for' },
+      endDate: { type: 'string', description: 'The end date to query lotteries for' },
+      isQueued: { type: 'boolean', description: 'Whether or not the lottery is queued' },
+      isDone: { type: 'boolean', description: 'Whether or not the lottery is done' },
+      winner: { type: 'string', description: 'Who the lottery winner was' },
+      limit: { type: 'number', description: 'The number of lotteries to retrieve' },
+    },
+  },
+  exposeRoute: true,
+  response: {
+    200: {
+      description: 'Successfully got the lotteries',
+      type: 'object',
+      properties: {
+        lotteries: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: lotteryInstanceObject
+          },
+        }
+      },
+    }
+  }
+};

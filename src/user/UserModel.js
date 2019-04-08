@@ -26,6 +26,14 @@ const userSchema = new mongoose.Schema({
       default: 0,
     },
   },
+  blacklist: {
+    date: {
+      type: Date,
+    },
+    isBlacklisted: {
+      type: Boolean,
+    }
+  },
   commandExecutionMetaData: [{
     commandID: { type: mongoose.Schema.Types.ObjectId, ref: 'Command' },
     netPoints: Number,

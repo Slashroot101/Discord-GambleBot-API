@@ -10,6 +10,10 @@ exports.createUser = async (req, resp) => {
     };
     req.body.commandExecutionMetaData = [];
     req.body.commandHistory = [];
+    req.body.blacklist = {
+      date: '',
+      isBlacklisted: false,
+    };
     const user = await new User(req.body).save();
     return {user};
   } catch (err) {
@@ -49,6 +53,14 @@ exports.getUserLeaderboard = async (req, reply) => {
   }
 };
 
+exports.updateUser = async (req, reply) => {
+  try {
+
+  } catch (err) {
+    throw boomify(err);
+  }
+};
+
 exports.getUserWithFilter = async (req, reply) => {
   try {
     let query = {};
@@ -66,6 +78,10 @@ exports.getUserWithFilter = async (req, reply) => {
 
     if(req.query.createdOn){
       query.createdOn = req.query.createdOn;
+    }
+
+    if('isBlacklisted' in req.query){
+      query['blacklist']['isBlacklisted'] = req.query.blacklist;
     }
 
     const user = await User.find(query).limit(Number(req.query.limit)).exec();

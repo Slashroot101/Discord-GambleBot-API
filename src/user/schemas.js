@@ -10,6 +10,17 @@ const userObject = {
       totalAccruedPoints: { type: 'number' },
     },
   },
+  blacklist: {
+    type: 'object',
+    properties: {
+      date: {
+        type: 'string',
+      },
+      isBlacklisted: {
+        type: 'boolean',
+      }
+    },
+  },
   commandExecutionMetaData: {
     type: 'array',
     items: {
@@ -133,6 +144,10 @@ exports.getUserWithFilter = {
       createdOn: {
         description: 'Created on date to filter by',
         type: 'string'
+      },
+      isBlacklisted: {
+        description: 'Whether or not the user is blacklisted',
+        type: 'boolean',
       },
       limit: {
         description: 'The number of rows to retrieve',

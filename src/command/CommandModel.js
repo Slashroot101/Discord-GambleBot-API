@@ -23,8 +23,7 @@ const commandSchema = new mongoose.Schema({
     },
   },
   allowedRoles: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Role',
+    type: String,
   }],
   cooldown: {
     hasCooldown: {

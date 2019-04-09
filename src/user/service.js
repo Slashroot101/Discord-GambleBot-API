@@ -53,13 +53,6 @@ exports.getUserLeaderboard = async (req, reply) => {
   }
 };
 
-exports.updateUser = async (req, reply) => {
-  try {
-
-  } catch (err) {
-    throw boomify(err);
-  }
-};
 
 exports.getUserWithFilter = async (req, reply) => {
   try {

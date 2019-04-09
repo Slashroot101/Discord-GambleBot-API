@@ -31,7 +31,7 @@ const commandSchema = new mongoose.Schema({
       required: true,
       default: true
     },
-   executionPerMinute: {
+   executions: {
      type: Number,
      required: true,
      default: 0,

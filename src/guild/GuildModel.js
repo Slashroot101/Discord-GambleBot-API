@@ -24,14 +24,12 @@ const guildModel = new mongoose.Schema({
     }
   },
   createdOn: {
-    type: Number,
+    type: Date,
     required: true,
   },
-  prefix: {
-    type: String,
-    required: true,
-    default: '!'
-  },
+  settings: [{
+    type: mongoose.Schema.Types.Mixed
+  }],
   communicationChannel: {
     onlyAllowCommunicationsHere: {
       type: Boolean,

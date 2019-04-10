@@ -48,6 +48,7 @@ exports.getGuildLeaderboard = async(req, reply) => {
 };
 
 exports.updateGuild = async (req, reply) => {
+  console.log(req.body)
   if(Object.keys(req.body).length === 0){
     return {guild: {}};
   }
@@ -62,8 +63,8 @@ exports.updateGuild = async (req, reply) => {
     }
   }
 
-  if(req.body.prefix){
-    query.prefix = req.body.prefix;
+  if(req.body.settings){
+    query.settings = req.body.settings;
   }
 
   if('onlyAllowCommunicationsHere' in req.body) {
@@ -85,8 +86,8 @@ exports.updateGuild = async (req, reply) => {
         {
           _id: req.params.id
         },
-        query,
-        {new: true},
+        {$set: query},
+        {new: true, upsert: true},
     ).exec();
     const returnValue = guild !== null ? guild : {};
     return {guild: returnValue};

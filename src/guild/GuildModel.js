@@ -27,6 +27,11 @@ const guildModel = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  prefix: {
+    type: String,
+    required: true,
+    default: '!'
+  },
   communicationChannel: {
     onlyAllowCommunicationsHere: {
       type: Boolean,

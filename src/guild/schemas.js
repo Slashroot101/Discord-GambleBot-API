@@ -10,6 +10,7 @@ const guildObject = {
   },
   isGlobal: { type: 'boolean'},
   createdOn: { type: 'number', },
+  prefix: { type: 'string' },
   communicationChannel: {
     type: 'object',
     properties: {
@@ -36,6 +37,7 @@ const guildWithoutInstanceVariables = {
     }
   },
   isGlobal: { type: 'boolean'},
+  prefix: { type: 'string' },
   createdOn: { type: 'number', },
   communicationChannel: {
     type: 'object',
@@ -186,6 +188,7 @@ exports.updateGuild = {
       onlyAllowCommunicationsHere: { type: 'boolean'},
       discordChannelID: { type: 'string' },
       disabledCommands: { type: 'string' },
+      prefix: { type: 'string' },
     }
   },
   response: {

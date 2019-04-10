@@ -62,6 +62,10 @@ exports.updateGuild = async (req, reply) => {
     }
   }
 
+  if(req.body.prefix){
+    query.prefix = req.body.prefix;
+  }
+
   if('onlyAllowCommunicationsHere' in req.body) {
     query["communicationChannel.onlyAllowCommunicationsHere"] = req.body.onlyAllowCommunicationsHere;
   }

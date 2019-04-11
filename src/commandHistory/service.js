@@ -18,10 +18,12 @@ exports.getCommandHistoryWithFilter =  async (req, reply) => {
       query.userID = req.query.userID;
     }
 
+    console.log(req.query)
     if(req.query.startTime){
       query.executionTime = {};
       query.executionTime['$gte'] = new Date(req.query.startTime);
     }
+
 
     if(req.query.endTime){
       if(!query.executionTime){

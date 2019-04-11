@@ -17,6 +17,10 @@ exports.getCommandWithFilter = async(req, resp) => {
       query.name = req.query.name;
     }
 
+    if(req.query.group){
+      query.group = req.query.group;
+    }
+
     if(req.query['ids[]']){
       query._id = { $in: req.query['ids[]']};
     }

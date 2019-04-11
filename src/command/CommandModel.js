@@ -6,6 +6,11 @@ const commandSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  group: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   description: {
     type: String,
     required: true,

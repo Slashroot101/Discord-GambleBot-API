@@ -63,8 +63,12 @@ exports.updateGuild = async (req, reply) => {
     }
   }
 
-  if(req.body.settings){
-    query.settings = req.body.settings;
+  if(req.body.disabledCommands){
+    query.disabledCommands = req.body.disabledCommands;
+  }
+
+  if(req.body.prefix){
+    query.prefix = req.body.prefix;
   }
 
   if('onlyAllowCommunicationsHere' in req.body) {
@@ -73,12 +77,6 @@ exports.updateGuild = async (req, reply) => {
 
   if(req.body.discordChannelID){
     query["communicationChannel.discordChannelID"] = req.body.discordChannelID;
-  }
-
-  if(req.body.disabledCommands){
-    query["$addToSet"] = {
-      disabledCommands: req.body.disabledCommands,
-    }
   }
 
   try {

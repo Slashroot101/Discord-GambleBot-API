@@ -27,9 +27,15 @@ const guildModel = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  settings: [{
-    type: mongoose.Schema.Types.Mixed
+  disabledCommands: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Command',
   }],
+  prefix: {
+    type: 'String',
+    required: true,
+    default: '!',
+  },
   communicationChannel: {
     onlyAllowCommunicationsHere: {
       type: Boolean,
@@ -42,10 +48,6 @@ const guildModel = new mongoose.Schema({
       default: '',
     }
   },
-  disabledCommands: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Command'
-  }],
 });
 
 module.exports = mongoose.model('Guild', guildModel);

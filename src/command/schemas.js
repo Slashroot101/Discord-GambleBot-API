@@ -15,6 +15,7 @@ const commandObject = {
       type: 'string',
     },
   },
+  group: { type: 'string' },
   cooldown: {
     type: 'object',
     properties: {
@@ -35,6 +36,7 @@ exports.createCommand = {
     type: 'object',
     properties: {
       name: { type: 'string' },
+      group: { type: 'string' },
       description: { type: 'string' },
       costData: {
         type:'object',
@@ -85,6 +87,7 @@ exports.getCommandWithFilter = {
         type: 'string',
         description: 'Name of command to filter by'
       },
+      group: { type: 'string' },
       ids: {
         type: 'string',
         description: 'Command IDS to filter by',
@@ -128,6 +131,7 @@ exports.updateCommand = {
           hasCost: { type: 'boolean' },
         },
       },
+      group: { type: 'string' },
       allowedRoles: {
         type: 'array',
         items: {

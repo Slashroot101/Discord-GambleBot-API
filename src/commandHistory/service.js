@@ -3,7 +3,6 @@ const CommandHistory = require('./CommandHistoryModel');
 
 exports.createCommandHistory = async (req, reply) => {
   try {
-    console.log(req.body)
     const commandHistory = await new CommandHistory(req.body).save();
     return {commandHistory};
   } catch (err)  {

@@ -55,10 +55,7 @@ exports.getGuildLeaderboard = async(req, reply) => {
 };
 
 exports.updateGuild = async (req, reply) => {
-  console.log(req.body)
-  if(Object.keys(req.body).length === 0){
-    return {guild: {}};
-  }
+  console.log('BODY',req.body)
   const query = {};
   if(req.body.points) {
     query['$inc'] = {
@@ -71,7 +68,11 @@ exports.updateGuild = async (req, reply) => {
   }
 
   if(req.body.disabledCommands){
-    query.disabledCommands = req.body.disabledCommands;
+    query['$push'] = {disabledCommands: req.body.disabledCommands};
+  }
+
+  if(req.body.enabledCommands){
+    query['$pull'] = {disabledCommands: {$in: req.body.enabledCommands}};
   }
 
   if(req.body.prefix){
@@ -87,16 +88,18 @@ exports.updateGuild = async (req, reply) => {
   }
 
   try {
+    console.log('QUERY', query)
     const guild = await Guild.findOneAndUpdate(
         {
           _id: req.params.id
         },
-        {$set: query},
+        query,
         {new: true, upsert: true},
     ).exec();
     const returnValue = guild !== null ? guild : {};
     return {guild: returnValue};
   } catch (err) {
+    console.log(err)
     throw boomify(err);
   }
 };

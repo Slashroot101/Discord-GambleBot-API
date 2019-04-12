@@ -3,7 +3,12 @@ const Command = require('./CommandModel');
 
 exports.createCommand = async (req, resp) => {
   try {
-    const command = await new Command(req.body).save();
+    const command = await Command.findOneAndUpdate(
+        {
+          name: req.body.name
+        },
+        {$set: req.body},
+        {new: true, upsert: true}).exec();
     return {command: command};
   } catch (err) {
     throw boomify(err);
@@ -37,7 +42,7 @@ exports.updateCommand = async(req, resp) => {
     const command = await Command
       .findOneAndUpdate(
           req.body._id,
-        req.body,
+          req.body,
         { new:true }
         ).exec();
     return {command};

@@ -16,6 +16,7 @@ const guildObject = {
       type: ['string', 'boolean', 'object'],
     }
   },
+  disabledCommands: {type: 'array', items: {type: 'string'}},
   communicationChannel: {
     type: 'object',
     properties: {
@@ -29,6 +30,7 @@ const guildObject = {
 
 const guildWithoutInstanceVariables = {
   discordGuildID: { type: 'string', },
+  disabledCommands: {type: 'array', items: {type: 'string'}},
   bank: {
     type: 'object',
     properties: {
@@ -179,8 +181,9 @@ exports.updateGuild = {
     properties: {
       points: { type: 'number'},
       onlyAllowCommunicationsHere: { type: 'boolean'},
+      enabledCommands: { type: 'array', items: {type:'string'} },
       discordChannelID: { type: 'string' },
-      disabledCommands: { type: 'string' },
+      disabledCommands: { type: 'array', items: {type:'string'} },
       prefix: { type: 'string' },
     }
   },

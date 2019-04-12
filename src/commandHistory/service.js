@@ -3,6 +3,7 @@ const CommandHistory = require('./CommandHistoryModel');
 
 exports.createCommandHistory = async (req, reply) => {
   try {
+    console.log(req.body)
     const commandHistory = await new CommandHistory(req.body).save();
     return {commandHistory};
   } catch (err)  {
@@ -18,7 +19,10 @@ exports.getCommandHistoryWithFilter =  async (req, reply) => {
       query.userID = req.query.userID;
     }
 
-    console.log(req.query)
+    if(req.query.commandID){
+      query.commandID = req.query.commandID;
+    }
+
     if(req.query.startTime){
       query.executionTime = {};
       query.executionTime['$gte'] = new Date(req.query.startTime);

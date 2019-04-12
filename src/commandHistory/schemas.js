@@ -54,6 +54,10 @@ exports.getWithFilter = {
         type: 'string',
         description: 'The end time to start to filter documents out greater than as an ISO string',
       },
+      commandID: {
+        type: 'string',
+        description: 'The command ID to filter by'
+      },
       sort: {
         type: 'number',
         minimum: -1,

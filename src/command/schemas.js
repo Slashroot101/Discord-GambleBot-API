@@ -9,6 +9,7 @@ const commandObject = {
       hasCost: { type: 'boolean' },
     },
   },
+  isInMaintenanceMode: {type:'boolean'},
   allowedRoles: {
     type: 'array',
     items: {
@@ -35,6 +36,7 @@ exports.createCommand = {
   body: {
     type: 'object',
     properties: {
+      isInMaintenanceMode: {type:'boolean'},
       name: { type: 'string' },
       group: { type: 'string' },
       description: { type: 'string' },
@@ -122,6 +124,7 @@ exports.updateCommand = {
   body: {
     type: 'object',
     properties: {
+      isInMaintenanceMode: {type:'boolean'},
       name: { type: 'string' },
       description: { type: 'string' },
       costData: {

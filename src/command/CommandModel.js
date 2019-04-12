@@ -30,6 +30,11 @@ const commandSchema = new mongoose.Schema({
   allowedRoles: [{
     type: String,
   }],
+  isInMaintenanceMode:{
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   cooldown: {
     hasCooldown: {
       type: Boolean,

@@ -106,7 +106,7 @@ exports.getGuildWithFilter = {
   querystring: {
     type: 'object',
     properties: {
-      discordGuildID: { type: 'string',  description: 'The Discord ID of the guild'},
+      discordGuildID: { type: 'array',  description: 'The Discord ID of the guild'},
       createdOn: { type: 'string', description: 'The date the guild was added to the database'},
       isGlobal: { type: 'boolean', description: 'If the guild is global or not (there is only one global guild)'},
       limit: { type: 'number', description: 'Then number of documents to retrieve'}

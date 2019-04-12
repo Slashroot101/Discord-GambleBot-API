@@ -44,7 +44,7 @@ const guildModel = new mongoose.Schema({
     },
     discordChannelID: {
       type: String,
-      required: true,
+      required: false,
       default: '',
     }
   },

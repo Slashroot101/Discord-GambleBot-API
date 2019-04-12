@@ -57,6 +57,7 @@ exports.getUserLeaderboard = async (req, reply) => {
 exports.getUserWithFilter = async (req, reply) => {
   try {
     let query = {};
+
     if(req.query['ids[]']){
       query._id = { $in: req.query['ids[]']};
     }

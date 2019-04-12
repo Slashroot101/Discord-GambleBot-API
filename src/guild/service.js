@@ -14,8 +14,15 @@ exports.getWithFilter = async (req, reply) => {
   try {
     const query = {};
 
-    if(req.query.discordGuildID){
-      query.discordGuildID = req.query.discordGuildID;
+    if(req.query['discordGuildID[0]']){
+      const discordGuildIDs = [];
+      for(let key in req.query){
+       if(key.includes('discordGuildID')){
+         discordGuildIDs.push(req.query[`${key}`]);
+       }
+      }
+     console.log(discordGuildIDs)
+      query.discordGuildID = { $in: discordGuildIDs};
     }
 
     if(req.query.createdOn){

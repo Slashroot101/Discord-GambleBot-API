@@ -10,13 +10,22 @@ exports.createLottery = async (req, reply) => {
   }
 };
 
+exports.addTickets = async (req, reply) => {
+  try {
+    const lottery = await Lottery.findOneAndUpdate(
+      {_id: req.params.id},
+      {$push: { tickets: req.body.tickets}},
+    );
+
+    return {lottery}
+  } catch (err) {
+    throw boomify(err);
+  }
+};
+
 exports.updateLottery = async (req, reply) => {
   try {
     const query = {};
-
-    if(req.body.tickets){
-      query['$push'] = {tickets: req.body.tickets};
-    }
 
     if('isDone' in req.body){
       query.isDone = req.body.isDone;

@@ -86,10 +86,6 @@ exports.updateLottery = {
   body: {
     type: 'object',
     properties: {
-      tickets: { type: 'array', items: {
-        type: 'object',
-          properties: { "purchaseDate": { type: 'string' }, "userID": { type: 'string' } }
-        }, description: 'Tickets to add to lottery'},
       isDone: { type: 'boolean', description: 'Whether the lottery is done or not' },
       isQueued: { type: 'boolean', description: 'Whether the lottery has been queued' },
       winner: { type: 'string', description: 'Who the lottery winner is' },

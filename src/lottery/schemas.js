@@ -170,3 +170,43 @@ exports.pickAndSetWinner = {
     }
   }
 };
+
+exports.addTickets = {
+  description: 'Add tickets to a lottery',
+  tags: ['Lottery'],
+  summary: 'Add the given tickets to the lottery',
+  body: {
+    type: 'object',
+    properties: {
+      tickets: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            purchaseDate: { type: 'string', description: 'The purchase date of the lottery ticket'},
+            userID: { type: 'string', description: 'The user who bought the ticket'}
+          }
+        }
+      },
+    },
+  },
+  params: {
+    type: 'object',
+    properties: {
+      id: { type: 'string', description: 'The ID of the lottery to add the tickets to.' }
+    }
+  },
+  exposeRoute: true,
+  response: {
+    200: {
+      description: 'Successfully updated the lottery',
+      type: 'object',
+      properties: {
+        lottery: {
+          type: 'object',
+          properties: lotteryInstanceObject,
+        }
+      },
+    }
+  }
+}

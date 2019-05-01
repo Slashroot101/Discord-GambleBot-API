@@ -55,7 +55,6 @@ exports.updateLottery = async (req, reply) => {
     }
 
     return {lottery};
-
   } catch (err) {
     throw boomify(err);
   }
@@ -69,11 +68,11 @@ exports.getWithFilter = async (req, reply) => {
     }
 
     if(req.query.startDate){
-      query.startDate['$gte'] = req.query.startDate;
+      query.startDate = {$gte : req.query.startDate};
     }
 
     if(req.query.endDate){
-      query.endDate['$lte'] = req.query.endDate;
+      query.endDate = {$lte : req.query.endDate};
     }
 
     if('isQueued' in req.query){

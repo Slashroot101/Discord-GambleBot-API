@@ -24,6 +24,7 @@ const lotteryObject = {
       },
     }
   },
+  localityType: { type: 'string' }
 };
 
 const lotteryInstanceObject = {
@@ -54,6 +55,7 @@ const lotteryInstanceObject = {
     }
   },
   __v: { type: 'number' },
+  localityType: { type: 'string' },
 };
 
 exports.createLottery = {
@@ -126,6 +128,7 @@ exports.getWithFilter = {
       isDone: { type: 'boolean', description: 'Whether or not the lottery is done' },
       winner: { type: 'string', description: 'Who the lottery winner was' },
       limit: { type: 'number', description: 'The number of lotteries to retrieve' },
+      localityType: { type: 'string', description: 'Whether or not the lottery is global' }
     },
   },
   exposeRoute: true,

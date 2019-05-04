@@ -79,6 +79,10 @@ exports.getWithFilter = async (req, reply) => {
       query.isQueued = req.query.isQueued;
     }
 
+    if(req.query.localityType){
+      query.localityType = req.query.localityType;
+    }
+
     if('isDone' in req.query){
       query.isDone = req.query.isDone;
     }

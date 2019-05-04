@@ -48,6 +48,9 @@ const LotterySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  localityType: {
+    type: String
+  },
   tickets: [{
     purchaseDate: {
       type: Date,

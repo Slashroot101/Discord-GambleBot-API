@@ -10,6 +10,7 @@ const lotteryObject = {
   isQueued: { type: 'boolean' },
   isDone: { type: 'boolean' },
   winner: { type: 'string' },
+  createdInChannel: { type: 'string' },
   tickets: {
     type: 'array',
     items: {
@@ -40,6 +41,7 @@ const lotteryInstanceObject = {
   isQueued: { type: 'boolean' },
   isDone: { type: 'boolean' },
   winner: { type: 'string' },
+  createdInChannel: { type: 'string' },
   tickets: {
     type: 'array',
     items: {
@@ -212,4 +214,4 @@ exports.addTickets = {
       },
     }
   }
-}
+};

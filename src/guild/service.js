@@ -88,7 +88,6 @@ exports.updateGuild = async (req, reply) => {
   }
 
   try {
-    console.log('QUERY', query)
     const guild = await Guild.findOneAndUpdate(
         {
           _id: req.params.id

@@ -21,9 +21,13 @@ exports.getWithFilter = async (req, reply) => {
          discordGuildIDs.push(req.query[`${key}`]);
        }
       }
-     console.log(discordGuildIDs)
       query.discordGuildID = { $in: discordGuildIDs};
     }
+
+    if(req.query.discordChannelID){
+      query['communicationChannel.discordChannelID'] = req.query.discordChannelID;
+    }
+
 
     if(req.query.createdOn){
       query.createdOn = req.query.createdOn;
@@ -77,10 +81,6 @@ exports.updateGuild = async (req, reply) => {
 
   if(req.body.prefix){
     query.prefix = req.body.prefix;
-  }
-
-  if('onlyAllowCommunicationsHere' in req.body) {
-    query["communicationChannel.onlyAllowCommunicationsHere"] = req.body.onlyAllowCommunicationsHere;
   }
 
   if(req.body.discordChannelID){

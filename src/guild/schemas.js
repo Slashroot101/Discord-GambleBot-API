@@ -20,7 +20,6 @@ const guildObject = {
   communicationChannel: {
     type: 'object',
     properties: {
-      onlyAllowCommunicationsHere: { type: 'boolean', },
       discordChannelID: { type: 'string', },
     }
   },
@@ -44,7 +43,6 @@ const guildWithoutInstanceVariables = {
   communicationChannel: {
     type: 'object',
     properties: {
-      onlyAllowCommunicationsHere: { type: 'boolean', },
       discordChannelID: { type: 'string', },
     }
   },
@@ -111,7 +109,8 @@ exports.getGuildWithFilter = {
       discordGuildID: { type: 'array',  description: 'The Discord ID of the guild'},
       createdOn: { type: 'string', description: 'The date the guild was added to the database'},
       isGlobal: { type: 'boolean', description: 'If the guild is global or not (there is only one global guild)'},
-      limit: { type: 'number', description: 'Then number of documents to retrieve'}
+      limit: { type: 'number', description: 'Then number of documents to retrieve'},
+      discordChannelID: { type: 'string', description: 'The communication channel set for a guild'},
     },
   },
   exposeRoute: true,
@@ -180,7 +179,6 @@ exports.updateGuild = {
     type: 'object',
     properties: {
       points: { type: 'number'},
-      onlyAllowCommunicationsHere: { type: 'boolean'},
       enabledCommands: { type: 'array', items: {type:'string'} },
       discordChannelID: { type: 'string' },
       disabledCommands: { type: 'array', items: {type:'string'} },

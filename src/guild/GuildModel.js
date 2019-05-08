@@ -37,11 +37,6 @@ const guildModel = new mongoose.Schema({
     default: '!',
   },
   communicationChannel: {
-    onlyAllowCommunicationsHere: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     discordChannelID: {
       type: String,
       required: false,

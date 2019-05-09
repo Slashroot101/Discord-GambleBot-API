@@ -111,6 +111,7 @@ exports.getGuildWithFilter = {
       isGlobal: { type: 'boolean', description: 'If the guild is global or not (there is only one global guild)'},
       limit: { type: 'number', description: 'Then number of documents to retrieve'},
       discordChannelID: { type: 'string', description: 'The communication channel set for a guild'},
+      id: { type: 'string', description: 'The row ID of the guild to retrieve'},
     },
   },
   exposeRoute: true,

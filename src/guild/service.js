@@ -32,6 +32,11 @@ exports.getWithFilter = async (req, reply) => {
       query['communicationChannel.discordChannelID'] = req.query.discordChannelID;
     }
 
+    if(req.query.disabledCommands){
+      query.disabledCommands = { $in : req.query.disabledCommands };
+    } else if (req.query.enabledCommands) {
+      query.disabledCommands = { $not: { $in: req.query.enabledCommands }};
+    }
 
     if(req.query.createdOn){
       query.createdOn = req.query.createdOn;

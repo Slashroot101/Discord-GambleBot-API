@@ -112,6 +112,8 @@ exports.getGuildWithFilter = {
       limit: { type: 'number', description: 'Then number of documents to retrieve'},
       discordChannelID: { type: 'string', description: 'The communication channel set for a guild'},
       id: { type: 'string', description: 'The row ID of the guild to retrieve'},
+      disabledCommands: { type: 'array', description: 'The guilds with the given disabled commands'},
+      enabledCommands: { type: 'array', description: 'All of the guilds that do not have the command(s) disabled'},
     },
   },
   exposeRoute: true,

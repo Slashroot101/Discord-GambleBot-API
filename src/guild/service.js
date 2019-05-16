@@ -68,7 +68,6 @@ exports.getGuildLeaderboard = async(req, reply) => {
 };
 
 exports.updateGuild = async (req, reply) => {
-  console.log('BODY',req.body)
   const query = {};
   if(req.body.points) {
     query['$inc'] = {

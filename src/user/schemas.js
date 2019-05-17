@@ -60,6 +60,34 @@ exports.addPointsToUser = {
   }
 };
 
+exports.updateUser = {
+	description: 'Updates a user record by ID',
+	tags: ['User'],
+	summary: 'Updates a user record by ID',
+	params: {
+	  id: { type: 'string', description: 'The ID of the user to update'}
+	},
+	body: {
+	  type: 'object',
+	  properties: {
+		blacklist: { type: 'boolean', description: 'If the user is blacklisted or not' },
+	  }
+	},
+	exposeRoute: true,
+	response: {
+	  200: {
+		description: 'Successfully updated the user',
+		type: 'object',
+		properties: {
+		  user: {
+			type: 'object',
+			properties: userObject,
+		  }
+		},
+	  }
+	}
+  };
+
 exports.createUser = {
   description: 'Create a new discord user',
   tags: ['User'],

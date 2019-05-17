@@ -21,6 +21,28 @@ exports.createUser = async (req, resp) => {
   }
 };
 
+exports.updateUser = async(req, resp) => {
+	try {
+	  const query = {};
+	  if('blacklist' in req.body){
+		  query.blacklist = {
+			  isBlacklisted: req.body.blacklist,
+			  date: new Date(),
+		  } 
+	  }
+
+	  const user = await User.findByIdAndUpdate(
+		  req.params.id,
+		  query,
+		  {new: true, upsert: true},
+	  ).exec();
+
+	  return {user};
+	} catch (err) {
+	  throw boomify(err);
+	}
+};
+
 exports.deleteUser = async (req, reply) => {
   try {
     const user =  await User.findByIdAndDelete(req.params.id).exec();
@@ -123,7 +145,6 @@ exports.addPointsToUser = async (req, reply) => {
 
      return {user: user || hadToAddCommand};
   } catch (err) {
-    console.log(err)
     throw boomify(err);
   }
 };

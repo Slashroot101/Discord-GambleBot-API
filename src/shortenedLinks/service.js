@@ -1,6 +1,6 @@
 const { boomify } = require('boom');
 const ShortenedLink = require('./ShortenedLinkModel');
-const ObjectId = require('mogoose').Schema.Types.ObjectId;
+const ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 exports.createShortenedLink = async(req, res) => {
   try {

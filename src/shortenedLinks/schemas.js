@@ -7,14 +7,24 @@ const shortenedLinkWithoutID = {
 	},
 	createdOn: { type: 'string', description: 'The date the shortened link was created on', },
 	originalUrl: { type: 'string', description: 'The original URL of the shortened link',},
-	shortCode: { type: 'string', description: 'The randomly generated short code for the link', }
-  };
+	shortCode: { type: 'string', description: 'The randomly generated short code for the link', },
+};
+
+const shortLinkBeforeCreate = {
+	originalUrl: { type: 'string', description: 'The original URL of the shortened link',},
+	createdBy: {
+		type: 'array',
+		items: {
+		  type: 'string',
+		}
+	  },
+}
 
 const shortenedLink = {
   _id: { type: 'string', description: 'Randomly generated database ID'},
+  __v: { type: 'number' },
   ...shortenedLinkWithoutID,
 };
-
 
 exports.createShortenedLink = {
 	description: 'Create a new shortened link',
@@ -22,7 +32,7 @@ exports.createShortenedLink = {
 	summary: 'Creates a shortened link',
 	body: {
 	  type: 'object',
-	  properties: shortenedLinkWithoutID,
+	  properties: shortLinkBeforeCreate,
 	},
 	exposeRoute: true,
 	response: {
@@ -30,11 +40,11 @@ exports.createShortenedLink = {
 		description: 'Successfully created a new shortened link',
 		type: 'object',
 		properties: {
-		  shortenedLink: {
-			type: 'object',
-			properties: shortenedLink,
-		  }
-		},
+			shortenedLink: {
+				type: 'object',
+				properties: shortenedLink,
+			}
+		}
 	  }
 	}
   };

@@ -11,7 +11,8 @@ const shortenedLink = new mongoose.Schema({
   },
   originalUrl: {
     type: String,
-    required: true,
+	required: true,
+	unique: true,
   },
   shortCode: {
     type: String,

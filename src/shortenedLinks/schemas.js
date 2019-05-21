@@ -23,6 +23,7 @@ const shortLinkBeforeCreate = {
 const shortenedLink = {
   _id: { type: 'string', description: 'Randomly generated database ID'},
   __v: { type: 'number' },
+  hostname: { type: 'string', description: 'The hostname that the link shortener is listening on',},
   ...shortenedLinkWithoutID,
 };
 

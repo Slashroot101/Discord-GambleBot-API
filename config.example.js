@@ -1,4 +1,5 @@
 module.exports = {
+  hostname: '', //hostname for link shortener
   db: {
     user: '', // postgres user
     host: '', // postgres host

@@ -22,7 +22,7 @@ exports.createShortenedLink = async(req, res) => {
 			}});
 		});
 	  } catch (err) {
-		throw boomify(err);
+			throw boomify(err);
 	  }
   })
 };
@@ -40,8 +40,9 @@ exports.getWithFilter = async(req, res) => {
 	}
 
 	const shortenedLinks = await ShortenedLink.find(query).exec();
+	console.log(shortenedLinks)
 
-	return {shortenedLinks};
+	return {shortenedLinks, hostname: config.hostname};
 	} catch (err) {
 		throw boomify(err);
 	}

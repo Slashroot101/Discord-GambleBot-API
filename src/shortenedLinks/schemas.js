@@ -70,7 +70,7 @@ exports.getWithFilter = {
 		description: 'Successfully created a new shortened link',
 		type: 'object',
 		properties: {
-			shortenedLink: {
+			shortenedLinks: {
 				type: 'array',
 				items: {
 					type: 'object',

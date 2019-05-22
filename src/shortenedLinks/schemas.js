@@ -20,6 +20,12 @@ const shortLinkBeforeCreate = {
 	  },
 }
 
+const shortenedLinkWithoutHostname = {
+	_id: { type: 'string', description: 'Randomly generated database ID'},
+  __v: { type: 'number' },
+  ...shortenedLinkWithoutID,
+}
+
 const shortenedLink = {
   _id: { type: 'string', description: 'Randomly generated database ID'},
   __v: { type: 'number' },
@@ -48,4 +54,31 @@ exports.createShortenedLink = {
 		}
 	  }
 	}
-  };
+};
+
+exports.getWithFilter = {
+	description: 'Get shortened links with a filter',
+	tags: ['ShortenedLinks'],
+	summary: 'Gets the shortened links with a filter',
+	query: {
+		createdBy: { type: 'string', description: 'The users that created this short link'},
+		originalUrl: { type: 'string', description: 'The original URL that the users shortened'},
+	},
+	exposeRoute: true,
+	response: {
+	  200: {
+		description: 'Successfully created a new shortened link',
+		type: 'object',
+		properties: {
+			shortenedLink: {
+				type: 'array',
+				items: {
+					type: 'object',
+					properties: shortenedLinkWithoutHostname
+				},
+			},
+			hostname: { type: 'string', description: 'The hostname that the URL shortener currently sits on'},
+			}
+	  }
+	}
+};

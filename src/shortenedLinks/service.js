@@ -26,3 +26,23 @@ exports.createShortenedLink = async(req, res) => {
 	  }
   })
 };
+
+exports.getWithFilter = async(req, res) => {
+	try {
+	const query = {};
+	
+	if(req.query.createdBy){
+		query.createdBy = { $in : req.query.createdBy };
+	}
+
+	if(req.query.originalUrl){
+		query.originalUrl = req.query.originalUrl;
+	}
+
+	const shortenedLinks = await ShortenedLink.find(query).exec();
+
+	return {shortenedLinks};
+	} catch (err) {
+		throw boomify(err);
+	}
+};

@@ -82,3 +82,29 @@ exports.getWithFilter = {
 	  }
 	}
 };
+
+exports.update = {
+	description: 'Updates the shortened link',
+	tags: ['ShortenedLinks'],
+	summary: 'Updates the shortened link',
+	body: {
+		createdBy: { type: 'array', items: {properties: 'string'}, description: 'The users that created this short link'},
+	},
+	params: {
+		id: { type: 'string', description: 'The ID of the shortened link to update' },
+	},
+	exposeRoute: true,
+	response: {
+	  200: {
+		description: 'Successfully created a new shortened link',
+		type: 'object',
+		properties: {
+			shortenedLink: {
+				type: 'object',
+				properties: shortenedLink,
+			},
+			hostname: { type: 'string', description: 'The hostname that the URL shortener currently sits on'},
+			}
+	  }
+	}
+};

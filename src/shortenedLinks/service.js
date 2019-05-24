@@ -29,20 +29,39 @@ exports.createShortenedLink = async(req, res) => {
 
 exports.getWithFilter = async(req, res) => {
 	try {
-	const query = {};
-	
-	if(req.query.createdBy){
-		query.createdBy = { $in : req.query.createdBy };
+		const query = {};
+		
+		if(req.query.createdBy){
+			query.createdBy = { $in : req.query.createdBy };
+		}
+
+		if(req.query.originalUrl){
+			query.originalUrl = req.query.originalUrl;
+		}
+
+		const shortenedLinks = await ShortenedLink.find(query).exec();
+
+		return {shortenedLinks, hostname: config.hostname};
+	} catch (err) {
+		throw boomify(err);
 	}
+};
 
-	if(req.query.originalUrl){
-		query.originalUrl = req.query.originalUrl;
-	}
+exports.update = async(req, res) => {
+	try {
+		const query = {};
 
-	const shortenedLinks = await ShortenedLink.find(query).exec();
-	console.log(shortenedLinks)
+		if(req.query.createdBy){
+			query.createdBy = { $addToSet: req.body.createdBy};
+		}
 
-	return {shortenedLinks, hostname: config.hostname};
+		const shortenedLink = await ShortenedLink.findOneAndUpdate(
+			{ _id: req.params.id},
+			query,
+			{new: true, upsert: false},
+		).exec();
+
+		return {shortenedLink, hostname: config.hostname};
 	} catch (err) {
 		throw boomify(err);
 	}

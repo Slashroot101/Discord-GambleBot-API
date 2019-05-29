@@ -39,15 +39,16 @@ const start = async () => {
       reconnectTries: 1000000,
       reconnectInterval: 3000
     });
-    mongoose.set('debug', true);
+		mongoose.set('debug', true);
+		fastify.use(restify.plugins.queryParser({ parseArrays: false }));
     fastify.register(require('fastify-swagger'), swagger.options);
     fastify.register(require('./user'), {prefix: '/api/users'});
     fastify.register(require('./command'), {prefix: '/api/commands'});
     fastify.register(require('./role'), {prefix: '/api/roles'});
     fastify.register(require('./commandHistory'), {prefix: '/api/command-history'});
     fastify.register(require('./guild'), {prefix: '/api/guilds'});
-	fastify.register(require('./lottery'), {prefix: '/api/lottery'});
-	fastify.register(require('./shortenedLinks'), {prefix: '/api/short-links'});
+		fastify.register(require('./lottery'), {prefix: '/api/lottery'});
+		fastify.register(require('./shortenedLinks'), {prefix: '/api/short-links'});
     await fastify.listen(3000);
     fastify.swagger();
     fastify.log.info(`Server is listening on ${fastify.server.address().port}`);

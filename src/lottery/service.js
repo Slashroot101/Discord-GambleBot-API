@@ -91,7 +91,7 @@ exports.getWithFilter = async (req, reply) => {
       query.winner = req.query.winner;
     }
 
-    const lottery = await Lottery.find(query).limit(req.query.limit).exec();
+    const lottery = await Lottery.find(query).limit(req.query.limit).sort('endDate', req.query.sort === 1 ? 'ascending' : 'descending').exec();
     return {lotteries: lottery};
   } catch (err) {
     throw boomify(err);

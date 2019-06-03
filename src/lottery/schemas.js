@@ -130,7 +130,8 @@ exports.getWithFilter = {
       isDone: { type: 'boolean', description: 'Whether or not the lottery is done' },
       winner: { type: 'string', description: 'Who the lottery winner was' },
       limit: { type: 'number', description: 'The number of lotteries to retrieve' },
-      localityType: { type: 'string', description: 'Whether or not the lottery is global' }
+      localityType: { type: 'string', description: 'Whether or not the lottery is global' },
+      sort: { type: 'number', description: 'How to sort the returned data by end date', min: -1, max: 1},
     },
   },
   exposeRoute: true,

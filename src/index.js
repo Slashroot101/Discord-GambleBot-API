@@ -40,7 +40,6 @@ const start = async () => {
       reconnectInterval: 3000
     });
 		mongoose.set('debug', true);
-		fastify.use(restify.plugins.queryParser({ parseArrays: false }));
     fastify.register(require('fastify-swagger'), swagger.options);
     fastify.register(require('./user'), {prefix: '/api/users'});
     fastify.register(require('./command'), {prefix: '/api/commands'});

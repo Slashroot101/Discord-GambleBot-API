@@ -51,7 +51,7 @@ exports.update = async(req, res) => {
 	try {
 		const query = {};
 
-		if(req.query.createdBy){
+		if(req.body.createdBy){
 			query.createdBy = { $addToSet: req.body.createdBy};
 		}
 

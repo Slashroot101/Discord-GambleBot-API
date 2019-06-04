@@ -13,10 +13,10 @@ const shortenedLinkWithoutID = {
 const shortLinkBeforeCreate = {
 	originalUrl: { type: 'string', description: 'The original URL of the shortened link',},
 	createdBy: {
-		type: 'array',
-		items: {
-		  type: 'string',
-		}
+			type: 'array',
+			items: {
+				type: 'string',
+			}
 	  },
 }
 

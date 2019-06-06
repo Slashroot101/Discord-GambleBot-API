@@ -4,7 +4,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const dns = require('dns');
 const URL = require('url').URL;
 const config = require('../../config');
-
+const mongoose = require('mongoose');
 
 exports.createShortenedLink = async(req, res) => {
   return new Promise((resolve, reject) => {
@@ -52,7 +52,7 @@ exports.update = async(req, res) => {
 		const query = {};
 
 		if(req.body.createdBy){
-			query.createdBy = { $addToSet: req.body.createdBy};
+			query['$addToSet'] = {createdBy: req.body.createdBy};
 		}
 
 		const shortenedLink = await ShortenedLink.findOneAndUpdate(

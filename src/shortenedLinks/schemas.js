@@ -63,6 +63,7 @@ exports.getWithFilter = {
 	query: {
 		createdBy: { type: 'string', description: 'The users that created this short link'},
 		originalUrl: { type: 'string', description: 'The original URL that the users shortened'},
+		shortCode: { type: 'string', description: 'The shortcode of the URL'},
 	},
 	exposeRoute: true,
 	response: {

@@ -31,6 +31,10 @@ exports.getWithFilter = async(req, res) => {
 	try {
 		const query = {};
 		
+		if(req.query.shortCode){
+			query.shortCode = req.query.shortCode;
+		}
+
 		if(req.query.createdBy){
 			query.createdBy = { $in : req.query.createdBy };
 		}

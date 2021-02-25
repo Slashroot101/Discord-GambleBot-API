@@ -9,7 +9,7 @@ const commandSchema = new mongoose.Schema({
   group: {
     type: String,
     required: true,
-    unique: true,
+    unique: false,
   },
   description: {
     type: String,
